@@ -1,0 +1,12 @@
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.loginWrapper {
+    height: 80%;
+    display: flex;
+    background: pink;
+}
