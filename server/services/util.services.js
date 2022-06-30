@@ -38,4 +38,4 @@ const generateUniqueString = async() =>{
     return String;
 }
 
-module.exports = {generateUniqueUserName, notUsedUserName, notUsedEmail, ConnectDB, DisconnectDB,generateUserName,generateUniqueString,generateUniquereffCode, findUser};
+module.exports = {notUsedEmail, ConnectDB, DisconnectDB,generateUniqueString};

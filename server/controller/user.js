@@ -12,7 +12,7 @@ class User {
     async create(req, res) {
         try {
 
-            const {email,name,password} = req.body;
+            const {email,name,password, contact} = req.body;
 
             // Check if the entered Email is present in Database
             if (await Utils.notUsedEmail(email)) {
@@ -21,13 +21,10 @@ class User {
 
                 const post = new Users({
                     name: name,
-                    username: await Utils.generateUniqueUserName(name),
-                    institute: institute,
-                    bio: bio,
                     email: email,
                     password: pass,
                     verificationCode: await Utils.generateUniqueString(),
-                    refCode: await Utils.generateUniquereffCode(),
+                    contact: contact
                 });
                 // Inserting the userData in database 
                 const newUser = await post.save();
