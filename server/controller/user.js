@@ -11,14 +11,10 @@ const handler = new Handler();
 class User {
     async create(req, res) {
         try {
-
             const {email,name,password, contact} = req.body;
-
             // Check if the entered Email is present in Database
             if (await Utils.notUsedEmail(email)) {
-
                 let pass = await bcrypt.hash(password, 10); // Hashing the Password
-
                 const post = new Users({
                     name: name,
                     email: email,
@@ -26,18 +22,13 @@ class User {
                     verificationCode: await Utils.generateUniqueString(),
                     contact: contact
                 });
-                // Inserting the userData in database 
                 const newUser = await post.save();
-
-                // Sending the Mail of verification
                 let Mail = new emailService();
                 Mail.mailVerification(newUser._id, newUser.email, newUser.name, newUser.verificationCode, (response) => {
                     console.log(response);
                     if (response == 200) {
-                        //  Signup Successfull & verification mail send
                         res.status(201).json(newUser);
                     } else {
-                        //  Signup Successfull & but faile to send verification mail
                         res.json(newUser).status(500);
                     }
                     res.status(500).json(newUser);
@@ -46,7 +37,6 @@ class User {
 
             } else {
                 const result = await Utils.findUser(email);
-                // Sending the Existing User details
                 res.status(409).json(result);
             }
 
@@ -60,11 +50,8 @@ class User {
         const data = req.body;
         const {id} = req.params;
         try{
-            const unique = await Utils.notUsedUserName(data.username);
             const user = await Users.findById(id);
-            console.log(user.username);
-            if(user && (user.username === data.username || unique)){
-                console.log("Updated");
+            if(user){
                 const result = await Users.updateOne({id}, {$set:data});
                 res.status(201).json(result);
             }
@@ -100,13 +87,12 @@ class User {
 
     async addPassword(req, res) {
         const { id } = req.params;
-        let {password,confirmPassword} = req.body;
+        let { password,confirmPassword } = req.body;
         try {
             if (password === confirmPassword) {
                 const user = await Users.findById(id);
                 const isMatch = await bcrypt.compare(password, user.password);
                 if (!isMatch) {
-                    //Hash Password
                     const salt = await bcrypt.genSalt(10);
                     password = await bcrypt.hash(password, salt);
                     let post = await user.updateOne({ $set: {password}});

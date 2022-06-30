@@ -1,9 +1,9 @@
 //---------------------------------------------MODULES---------------------------------------------
-const express = require('express');
-const { NextFunction, response, request } =  require('express');
-const userRouter = require("./users");
-const authRouter = require("./auth");
-const Utills = require('./../services/util.services');
+var express = require('express');
+var userRouter = require("./users");
+var authRouter = require("./auth");
+var googleROuter = require('./../services/strategies/google')
+var Utills = require('./../services/util.services');
 
 Utills.ConnectDB((response) =>{
   console.log(response);
@@ -11,7 +11,7 @@ Utills.ConnectDB((response) =>{
 
 
 //---------------------------------------------INSTANCE---------------------------------------------
-const router = new express.Router();
+var router = new express.Router();
 
 router.get('/', async (request,response) => {
         response.json({status: 'success'});
@@ -19,6 +19,7 @@ router.get('/', async (request,response) => {
 
 router.use('/api/users',userRouter);
 router.use('/api/auth',authRouter);
+router.use('/',googleROuter);
 
     
 module.exports = router;
