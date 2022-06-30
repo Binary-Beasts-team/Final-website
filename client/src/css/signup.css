@@ -9,7 +9,7 @@
 
 .signupWrapper {
     height: 90%;
-    width: 80%;
+    width: 75%;
     display: flex;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .signupInput {
-    height: 50px;
+    height: 3rem;
     border-radius: 10px;
     border: 1px solid grey;
     font-size: 18px;
@@ -60,7 +60,7 @@
 }
 
 .signupBtn {
-    height: 50px;
+    height: 3rem;
     border-radius: 10px;
     border: none;
     background-color: rgb(238, 71, 71);
@@ -87,10 +87,10 @@
     margin: 0px;
 }
 
-.loginBtn {
+.logInBtn {
     width: 60%;
     align-self: center;
-    height: 50px;
+    height: 3rem;
     border-radius: 10px;
     border: none;
     background-color: #43B62A;
@@ -101,6 +101,6 @@
     margin-bottom: 10px;
 }
 
-.loginBtn:hover {
+.logInBtn:hover {
     background-color: #3fae26;
 }

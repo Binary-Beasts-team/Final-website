@@ -2,6 +2,7 @@ import "../css/login.css";
 import {useRef,useState} from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 
 
@@ -63,16 +64,16 @@ function Login() {
                         <input placeholder="Email" type="email" required className="loginInput" ref={email} name="email" value={userLoginInfo.email} onChange={handleLoginChange}/>
                         <input placeholder="Password" type="password" required className="loginInput" ref={password} name="password" value={userLoginInfo.password} onChange={handleLoginChange}/>
                         <button className="loginBtn" onClick={postLoginData}>Login In</button>
-                        {/* <hr className="hr"/>
+                        {/* <hr className="hr"/> */}
                         <div className="loginOptions">
                             <button className="googleBtn">  Google</button>
                             <button className="fbBtn"> Facebook</button>
                             <button className="githubBtn"> GitHub</button>
-                        </div> */}
-                        <span className="loginForgot">Forgot Password ?</span>
-                        <hr className="hr" />
-                        <span className="newText">New to Zomato? 
-                        <a className="" href="/user/signup"> Create Account</a>
+                        </div>
+                        <Link to="/" className="loginForgot">Forgot Password ?</Link>
+                        <hr className="hr"/>
+                        <span className="newText">New to Zomato?
+                            <Link className="signUpBtn" to="/user/signup">Create Account</Link>
                         </span>
                     </form>
                 </div>
