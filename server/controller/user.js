@@ -25,19 +25,20 @@ class User {
                 const newUser = await post.save();
                 let Mail = new emailService();
                 Mail.mailVerification(newUser._id, newUser.email, newUser.name, newUser.verificationCode, (response) => {
-                    console.log(response);
                     if (response == 200) {
                         res.status(201).json(newUser);
                     } else {
-                        res.json(newUser).status(500);
-                    }
-                    res.status(500).json(newUser);
-                
+                        res.status(500).json(newUser);
+                    }                
                 });
 
             } else {
-                const result = await Utils.findUser(email);
-                res.status(409).json(result);
+                let pass = await bcrypt.hash(password, 10); // Hashing the Password
+                const post = await Users.findOneAndUpdate({email},{
+                    password: pass,
+                    // contact: contact
+                });
+                res.status(200).json(post);
             }
 
         }catch(error){
@@ -116,7 +117,6 @@ class User {
             const user = await Users.findOne({email});
             let Mail = new email();
                 Mail.resetPassword(user._id,user.email,user.name,user.verificationCode,(response) =>{
-                    console.log(response);
                     if (response == 200) {
                         //  Signup Successfull & verification mail send
                         res.status(201).json(user);
