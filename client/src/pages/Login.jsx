@@ -1,9 +1,16 @@
 import "../css/login.css";
 import {useRef} from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 
 function Login() {
+    const navigate = useNavigate();
 
+    const handleSignup = ()=>{
+        navigate('/user/signup');
+    }
      // Submitted Email-Password
     const email = useRef();
     const password = useRef();
@@ -34,7 +41,7 @@ function Login() {
                         <span className="loginForgot">Forgot Password ?</span>
                         <hr className="hr"/>
                         <span className="newText">New to Zomato?</span>
-                        <button className="signUpBtn">Create a New Account</button>
+                        <button className="signUpBtn" onClick={handleSignup}>Create a New Account</button>
                     </form>
                 </div>
             </div>
