@@ -6,24 +6,26 @@ import axios from "axios";
 
 
 function Login() {
-
+    const email = useRef();
+    const password = useRef();
     const navigate = useNavigate();
     const [userLoginInfo, setuserLoginInfo] = useState({
         email: "",
         password: "",
     });
+    const [user,setUser] = useState({})
+
+    const handleGoogleOnClick = () => {
+        window.location = '/auth/google'
+    }
 
     const handleLoginChange = (e) => {
         const val = e.target.value;
         const name = e.target.name;
-    
         setuserLoginInfo({ ...userLoginInfo, [name]: val });
     };
     
      // Submitted Email-Password
-    const email = useRef();
-    const password = useRef();
-
     const handleSubmit=(e)=>{
         e.preventDefault();         //prevents reloading page on Submit
     }
@@ -63,12 +65,11 @@ function Login() {
                         <input placeholder="Email" type="email" required className="loginInput" ref={email} name="email" value={userLoginInfo.email} onChange={handleLoginChange}/>
                         <input placeholder="Password" type="password" required className="loginInput" ref={password} name="password" value={userLoginInfo.password} onChange={handleLoginChange}/>
                         <button className="loginBtn" onClick={postLoginData}>Login In</button>
-                        {/* <hr className="hr"/>
+                        <hr className="hr"/>
                         <div className="loginOptions">
-                            <button className="googleBtn">  Google</button>
+                            <button className="googleBtn" onClick={handleGoogleOnClick}>  Google</button>
                             <button className="fbBtn"> Facebook</button>
-                            <button className="githubBtn"> GitHub</button>
-                        </div> */}
+                        </div>
                         <span className="loginForgot">Forgot Password ?</span>
                         <hr className="hr" />
                         <span className="newText">New to Zomato? 

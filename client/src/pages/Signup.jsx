@@ -45,13 +45,13 @@ function Signup() {
 
         try {
             const res = await axios.post(
-                "http://localhost:3001/api/users/",
+                "/api/users/",
                 {
                     userName,
                     email,
                     password,
                 });
-    
+
             if (res) {
             console.log(res);
             console.log("sent the verification email to your registered email address !!");
