@@ -1,24 +1,55 @@
 import "../css/login.css";
-import {useRef} from "react";
+import {useRef,useState} from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
 
 function Login() {
-    const navigate = useNavigate();
 
-    const handleSignup = ()=>{
-        navigate('/user/signup');
-    }
+    const navigate = useNavigate();
+    const [userLoginInfo, setuserLoginInfo] = useState({
+        email: "",
+        password: "",
+    });
+
+    const handleLoginChange = (e) => {
+        const val = e.target.value;
+        const name = e.target.name;
+    
+        setuserLoginInfo({ ...userLoginInfo, [name]: val });
+    };
+    
      // Submitted Email-Password
     const email = useRef();
     const password = useRef();
 
     const handleSubmit=(e)=>{
         e.preventDefault();         //prevents reloading page on Submit
-        console.log(email);
     }
+
+    const postLoginData = async () => {
+        const { email, password } = userLoginInfo;
+        
+        if (!email || !password) {
+            console.log("fill all the fields before login!!");
+            return;
+        }
+        try {
+            const res = await axios.post(
+                "/api/auth/login",{
+                    email,
+                    password
+                });
+            var data = {email:res.data.email, _id:res.data._id, img: res.data.dpLink, name:res.data.name}
+            if (res) {
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            navigate("/");
+            }
+        } catch (error) {
+            console.log("wrong credentials error in verfication try again !!!! ");
+        }
+    };
 
     return (
         <div className="login">
@@ -29,9 +60,9 @@ function Login() {
                 </div>
                 <div className="loginRight">
                     <form className="loginBox" onSubmit={handleSubmit}>
-                        <input placeholder="Email" type="email" required className="loginInput" ref={email} />
-                        <input placeholder="Password" type="password" required className="loginInput" ref={password} />
-                        <button className="loginBtn">Log In</button>
+                        <input placeholder="Email" type="email" required className="loginInput" ref={email} name="email" value={userLoginInfo.email} onChange={handleLoginChange}/>
+                        <input placeholder="Password" type="password" required className="loginInput" ref={password} name="password" value={userLoginInfo.password} onChange={handleLoginChange}/>
+                        <button className="loginBtn" onClick={postLoginData}>Login In</button>
                         {/* <hr className="hr"/>
                         <div className="loginOptions">
                             <button className="googleBtn">  Google</button>
@@ -39,9 +70,10 @@ function Login() {
                             <button className="githubBtn"> GitHub</button>
                         </div> */}
                         <span className="loginForgot">Forgot Password ?</span>
-                        <hr className="hr"/>
-                        <span className="newText">New to Zomato?</span>
-                        <button className="signUpBtn" onClick={handleSignup}>Create a New Account</button>
+                        <hr className="hr" />
+                        <span className="newText">New to Zomato? 
+                        <a className="" href="/user/signup"> Create Account</a>
+                        </span>
                     </form>
                 </div>
             </div>

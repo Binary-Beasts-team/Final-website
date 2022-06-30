@@ -11,16 +11,16 @@ const handler = new Handler();
 class User {
     async create(req, res) {
         try {
-            const {email,name,password, contact} = req.body;
+            const {userName,email,password} = req.body;
             // Check if the entered Email is present in Database
             if (await Utils.notUsedEmail(email)) {
                 let pass = await bcrypt.hash(password, 10); // Hashing the Password
                 const post = new Users({
-                    name: name,
+                    name: userName,
                     email: email,
                     password: pass,
                     verificationCode: await Utils.generateUniqueString(),
-                    contact: contact
+                    // contact: contact
                 });
                 const newUser = await post.save();
                 let Mail = new emailService();
