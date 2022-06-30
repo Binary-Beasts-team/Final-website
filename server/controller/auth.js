@@ -25,17 +25,12 @@ class Auth {
         const {email,password} = req.body;
         try {
             const user = await Users.findOne({email});
-            if(user.activity > 0){
-                const isMatch = await bcrypt.compare(password, user.password);
-                if(isMatch){
-                    res.status(200).send(user);
-                }else{
-                    console.log("Invalid password");
-                    res.status(400).json("Invalid password");
-                }
+            const isMatch = await bcrypt.compare(password, user.password);
+            if(isMatch && user.verified === true) {
+                res.status(200).send(user);
             }else{
-                console.log("User account is not activated");
-                res.status(400).json("User account is not activated");
+                console.log("Invalid password");
+                res.status(400).json("Invalid password");
             }
         } catch (error) {
             console.log(error);
@@ -46,11 +41,9 @@ class Auth {
     async resetPassword(req,res) {
         const {password, ConfirmPassword} = req.body
         const {id, token} = req.params
-
         if(password !== ConfirmPassword){
             return res.status(400).json("Both Password must be same !");
         }
-
         let newPassword = password;
         try{
             const user = await Users.findById(id);
@@ -60,7 +53,6 @@ class Auth {
                 //Hash Password
                 const salt = await bcrypt.genSalt(10);
                 newPassword = await bcrypt.hash(newPassword, salt);
-                
                 //new token
                 let newToken = await Utils.generateUniqueString();
 

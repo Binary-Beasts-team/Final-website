@@ -32,7 +32,7 @@ let mailOptions = {
 };
 
 
-const apiHostUrl = "http://localhost:5050/api/auth/mailoptions"
+const apiHostUrl = "http://localhost:3000/api/auth/mailoptions"
 
 //---------------------------------------------CLASS---------------------------------------------
 
