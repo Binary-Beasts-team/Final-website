@@ -71,12 +71,6 @@ function Login() {
                             <button className="googleBtn" onClick={handleGoogleOnClick}>  Google</button>
                             <button className="fbBtn"> Facebook</button>
                         </div>
-                        <span className="loginForgot">Forgot Password ?</span>
-                        <hr className="hr" />
-                        <span className="newText">New to Zomato? 
-                        <a className="" href="/user/signup"> Create Account</a>
-                            <button className="githubBtn"> GitHub</button>
-                        </div>
                         <Link to="/" className="loginForgot">Forgot Password ?</Link>
                         <hr className="hr"/>
                         <span className="newText">New to Zomato?
