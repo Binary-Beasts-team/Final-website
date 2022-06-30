@@ -14,5 +14,4 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-
-module.exports = app;
+odule.exports = app;
