@@ -3,7 +3,7 @@
 const Users = require('./../db/schema/user');
 const Utils = require('../services/util.services');
 const bcrypt = require("bcryptjs");
-const email = require('./../services/email.services');
+const EmailService = require('./../services/email.services');
 
 class Auth {
     async emailVerification(req,res) {
@@ -29,8 +29,7 @@ class Auth {
             if(isMatch && user.verified === true) {
                 res.status(200).send(user);
             }else{
-                console.log("Invalid password");
-                res.status(400).json("Invalid password");
+                res.status(400).json("Email Not Verified");
             }
         } catch (error) {
             console.log(error);
@@ -38,6 +37,33 @@ class Auth {
         }
     }
 
+    //Generate password Reset link and Send via Mail
+    async forgotPassword(req,res) {
+        // find if user of given email (req.body.email) exists
+        //create a link with user's id and token and send via mail
+        const {email} = req.body;
+        console.log(email);
+        try{
+            const user = await Users.findOne({email});
+            if(!user){return res.status(400).json("User Does Not Exist !")}
+
+            let Mail = new EmailService();
+                Mail.passwordResetMail(user._id,user.email,user.name,user.verificationCode,(response) =>{
+                    console.log(response);
+                    if (response == 200) {
+                        //Mail Sent
+                        res.status(201).json(user);
+                    }
+                    else {
+                        //  Signup Successful & but failed to send verification mail
+                        res.status(500).json("Mail Not Sent");
+                        }
+                });
+
+        } catch (e) { return res.status(500).json(e) }
+    }
+
+    // verify Link and Change  Password
     async resetPassword(req,res) {
         const {password, ConfirmPassword} = req.body
         const {id, token} = req.params

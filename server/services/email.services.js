@@ -37,7 +37,7 @@ const apiHostUrl = "http://localhost:3000/api/auth/mailoptions"
 //---------------------------------------------CLASS---------------------------------------------
 
 let verificationMail = ``; 
-class Email {    
+class Email {
     // Methods
     // 1. Send a mail for Verification of Email Address
     mailVerification = async (userId,mail,name,token,callback) => {
@@ -66,10 +66,11 @@ class Email {
         }
     }
 
-    resetPassword = async (userId,mail,name,token,callback) => {
-        let subject = "Reset Password"
+    passwordResetMail = async (userId,mail,name,token,callback) => {
+        let subject = "Reset Password | Binary Beasts"
         try {
-            let bodyContent = apiHostUrl +  `/resetpassword/${userId}/${token}`
+            let bodyContent = `Dear User ${name} ! Please Visit this Link to Reset your Password:  
+            ${apiHostUrl}/resetpassword/${userId}/${token}`;
             
             mailOptions.subject = subject
             mailOptions.to = mail
@@ -77,7 +78,7 @@ class Email {
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
                   // return(console.callback(error));
-                    console.log(email, username);
+                    console.log(mail, name);
                     callback(error);
                 } else {
                   // return(callback(200));
