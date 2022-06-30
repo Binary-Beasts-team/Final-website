@@ -80,10 +80,15 @@ function Signup() {
                         <input type="password" required placeholder="Password" className="signupInput" ref={password} name="password" value={userSignupInfo.password} onChange={handleSignupChange}/>
                         <input type="password" required placeholder="Re-Enter Password" className="signupInput" ref={rePassword} name="confirmPassword" value={userSignupInfo.confirmPassword} onChange={handleSignupChange}/>
                         <button className="signupBtn" onClick={postSignupData}>Sign Up</button>
+                        <div className="loginOptions">
+                            <button className="googleBtn">  Google</button>
+                            <button className="fbBtn"> Facebook</button>
+                            <button className="githubBtn"> GitHub</button>
+                        </div>
 
                         <hr className="hr"/>
                         <span className="newText">Already have an account?</span>
-                        <button className="loginBtn" onClick={handleLogin}>Log In</button>
+                        <button className="logInBtn" onClick={handleLogin}>Log In</button>
                     </form>
                 </div>
             </div>

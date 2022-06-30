@@ -2,6 +2,7 @@ import "../css/login.css";
 import {useRef,useState} from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 
 
@@ -74,6 +75,12 @@ function Login() {
                         <hr className="hr" />
                         <span className="newText">New to Zomato? 
                         <a className="" href="/user/signup"> Create Account</a>
+                            <button className="githubBtn"> GitHub</button>
+                        </div>
+                        <Link to="/" className="loginForgot">Forgot Password ?</Link>
+                        <hr className="hr"/>
+                        <span className="newText">New to Zomato?
+                            <Link className="signUpBtn" to="/user/signup">Create Account</Link>
                         </span>
                     </form>
                 </div>
