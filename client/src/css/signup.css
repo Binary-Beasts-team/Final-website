@@ -35,9 +35,7 @@
 
 .signupBox {
 
-    height: 70%;
-    /* width: 90%; */
-    padding: 2rem;
+    
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -3,6 +3,7 @@ import {useRef,useState} from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 
 
@@ -34,8 +35,10 @@ function Login() {
     const postLoginData = async () => {
         const { email, password } = userLoginInfo;
         
+        const Loadtoast = toast.loading("logging in wait.....");
+
         if (!email || !password) {
-            console.log("fill all the fields before login!!");
+            toast.error("fill all the fields before login!!")
             return;
         }
         try {
@@ -49,7 +52,12 @@ function Login() {
             localStorage.setItem("userInfo", JSON.stringify(data));
             navigate("/");
             }
+
+            toast.dismiss(Loadtoast);
         } catch (error) {
+            toast.dismiss(Loadtoast);
+
+            toast.error("something went wrong cheack your internet connection!!")
             console.log("wrong credentials error in verfication try again !!!! ");
         }
     };
