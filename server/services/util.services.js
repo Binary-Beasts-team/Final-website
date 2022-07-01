@@ -1,6 +1,7 @@
 // Write the common used functions here...
 
 const Student = require('../db/schema/student');
+const Faculty = require('../db/schema/faculty');
 const generateUniqueId = require('generate-unique-id');
 const { v4: uuidv4 } = require("uuid");
 const referralCodeGenerator = require('referral-code-generator')
@@ -17,6 +18,34 @@ const notUsedEmail = async(email) =>{
     }catch(error){
         console.log(error);
         return true;
+    }
+}
+
+const uniqueFacultyMail = async(email) =>{
+    try{
+        const result = await Faculty.findOne({email});
+            if(result === null){
+                return true;
+            }else{
+                return false;
+            }
+    }catch(error){
+        console.log(error);
+        return true;
+    }
+}
+
+const uniqueFacultyUsername = async(username) =>{
+    try {
+        const result = await Faculty.findOne({username: username});
+            if(result === null){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (error) {
+            console.log(error);
+            return true;
     }
 }
 
@@ -66,7 +95,7 @@ const generateUniqueUserName = async(name) => {
     let username;
     while(notFound){
         username = await generateUserName(name);
-        if(await notUsedUserName(username)){
+        if(await notUsedUserName(username) && await uniqueFacultyUsername(username)){
             notFound = false;
         }
     }
@@ -84,4 +113,4 @@ const getstudentregno = (email) =>{
     return regno;
 }
 
-module.exports = {generateUniqueUserName, notUsedUserName, notUsedEmail, ConnectDB, DisconnectDB,generateUserName,generateUniqueString,getstudentregno};
+module.exports = {generateUniqueUserName, notUsedUserName, uniqueFacultyUsername, notUsedEmail, uniqueFacultyMail, ConnectDB, DisconnectDB,generateUserName,generateUniqueString,getstudentregno};

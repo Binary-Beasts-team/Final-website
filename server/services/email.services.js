@@ -26,7 +26,7 @@ let transporter = nodemailer.createTransport({
 });
 
 let mailOptions = {
-    from: "Binary Bests <vaghanibrij222@gmail.com>",
+    from: "Binary Beasts <vaghanibrij222@gmail.com>",
     to: "",
     subject: "",
 };
