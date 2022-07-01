@@ -12,11 +12,11 @@ const facultySchema = new mongoose.Schema({
     },
     username:{
         type: String,
-        required: true,
         trim: true,
     },
     regNo:{
         type: String,
+        default: ""
     },
     email: {
         type: String,
