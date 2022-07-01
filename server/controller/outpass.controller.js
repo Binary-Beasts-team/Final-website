@@ -1,45 +1,47 @@
 // Controllers for Students class goes here
 
 const Students = require('../db/schema/student');
+const Outpasses = require('../db/schema/outpass');
 const Utils = require('../services/util.services');
 const bcrypt = require("bcryptjs");
 const emailService = require('../services/email.services')
 
 const Handler = require('../services/Log.services');
-const handler = new Handler();
 
-class Student {
+class Outpass {
     async create(req, res) {
         try {
-            const {name,email,password} = req.body;
-            let pass = await bcrypt.hash(password, 10); // Hashing the Password
-            // Check if the entered Email is present in Database
-            if (await Utils.notUsedEmail(email)) {
-                const post = new Students({
-                    name: name,
-                    username: await Utils.generateUniqueUserName(name),
-                    email: email,
-                    password: pass,
-                    regNo: Utils.getstudentregno(email),
-                    token: await Utils.generateUniqueString()
+            const {dol,dor,reason,destination} = req.body;
+            const {id} = req.params;
+
+            var date1 = new Date(dol);
+            var date2 = new Date(dor);
+
+            const days = Math.round(Math.abs((date1 - date2) / (1000 * 60 * 60 * 24)));  
+            console.log(days);
+            if (days >10) {
+                const post = new Outpasses({
+                    studentId: id,
+                    DOL: dol,
+                    DOR: dor,
+                    days: days,
+                    reason: reason,
+                    destination: destination,
+                    approvedstatus: [false, false, false, false]
                 });
                 const newStudent = await post.save();
-                let Mail = new emailService();
-                Mail.mailVerification(newStudent._id, newStudent.email, newStudent.name, newStudent.verificationCode, (response) => {
-                    if (response == 200) {
-                        res.status(201).json(newStudent);
-                    } else {
-                        res.status(500).json(newStudent);
-                    }
-                });
-
+                res.status(200).json(post);
             } else {
-                const post = await Students.findOneAndUpdate({email},{
-                    password: pass,
-                    username: await Utils.generateUniqueUserName(name),
-                    regNo: Utils.getstudentregno(email),
-                    verified:true
+                const post = new Outpasses({
+                    studentId: id,
+                    DOL: dol,
+                    DOR: dor,
+                    days: days,
+                    reason: reason,
+                    destination: destination,
+                    approvedstatus: [false, false, false]
                 });
+                const newStudent = await post.save();
                 res.status(200).json(post);
             }
 
@@ -117,8 +119,8 @@ class Student {
         const {email} = req.body;
         try{
             const Student = await Students.findOne({email});
-            let Mail = new emailService();
-                Mail.passwordResetMail(Student._id,Student.email,Student.name,Student.verificationCode,(response) =>{
+            let Mail = new email();
+                Mail.resetPassword(Student._id,Student.email,Student.name,Student.verificationCode,(response) =>{
                     if (response == 200) {
                         //  Signup Successfull & verification mail send
                         res.status(201).json(Student);
@@ -152,4 +154,4 @@ class Student {
 }
 
 
-module.exports = Student;
+module.exports = Outpass;
