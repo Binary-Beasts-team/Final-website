@@ -2,6 +2,7 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 import Home from "./pages/Home";
+import Outpass from "./pages/Outpass";
 import React from 'react';
 
 import { ToastContainer } from 'react-toastify';
@@ -18,6 +19,7 @@ function App() {
 
           <Route exact path="/user/signup" element={<Signup />} />
           <Route exact path="/user/login" element={<Login />} />
+          <Route exact path="/user/outpass" element={<Outpass />} />
         </Routes>
       </Router>
     </>

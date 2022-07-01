@@ -1,0 +1,99 @@
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans";
+}
+
+
+/* Form Progress */
+.title {
+  padding: 0.1rem;
+  font-size: 0.9rem;
+  font-family: 'Encode Sans', sans-serif;
+}
+.label{
+  margin-top:2rem; 
+}
+.progress {
+  width: 1000px;
+  margin: 1.5rem auto;
+  text-align: center;
+}
+
+.progress .circle,
+.progress .bar {
+  display: inline-block;
+  background: #fff;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 2rem;
+  border: 1px solid #d5d5da;
+  margin: 2rem;
+}
+
+.progress .bar {
+  position: relative;
+  width: 8rem;
+  height: 0.6rem;
+  top: -1.5rem;
+  margin-left: -2.1rem;
+  margin-right: -2.1rem;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+
+.progress .circle .label {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 40px;
+  margin-top: 3px;
+  color: #b5b5ba;
+  font-size: 17px;
+  text-align: center;
+}
+
+.progress .circle .title {
+  color: #b5b5ba;
+  margin-left: -5px;
+  margin-top: 1rem;
+}
+
+/* Done / Active */
+.progress .bar.done,
+.done {
+  background: #8bc435;
+}
+
+.progress .bar.active {
+  background: linear-gradient(to right, #EEE 40%, #FFF 60%);
+}
+
+.progress .circle.done .label {
+  color: #FFF;
+  background: #8bc435;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, .2);
+}
+
+.progress .circle.done .title {
+  color: #444;
+}
+
+.progress .circle.active .label {
+  color: #FFF;
+  background: #0c95be;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, .2);
+}
+
+.progress .circle.active .title {
+  color: #0c95be;
+}
+
+.progress .circle.done {
+  margin-top: 2rem;
+  padding: 0.0001rem;
+}
