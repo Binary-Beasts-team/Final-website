@@ -1,4 +1,4 @@
-// Controllers for users class goes here
+// Controllers for Students class goes here
 
 const Students = require('../db/schema/student');
 const Utils = require('./../services/util.services');
@@ -8,7 +8,7 @@ const emailService = require('./../services/email.services')
 const Handler = require('./../services/Log.services');
 const handler = new Handler();
 
-class User {
+class Student {
     async create(req, res) {
         try {
             const {name,email,password} = req.body;
@@ -23,13 +23,13 @@ class User {
                     regNo: Utils.getstudentregno(email),
                     verificationCode: await Utils.generateUniqueString()
                 });
-                const newUser = await post.save();
+                const newStudent = await post.save();
                 let Mail = new emailService();
-                Mail.mailVerification(newUser._id, newUser.email, newUser.name, newUser.verificationCode, (response) => {
+                Mail.mailVerification(newStudent._id, newStudent.email, newStudent.name, newStudent.verificationCode, (response) => {
                     if (response == 200) {
-                        res.status(201).json(newUser);
+                        res.status(201).json(newStudent);
                     } else {
-                        res.status(500).json(newUser);
+                        res.status(500).json(newStudent);
                     }                
                 });
 
@@ -53,8 +53,8 @@ class User {
         const data = req.body;
         const {id} = req.params;
         try{
-            const user = await Students.findById(id);
-            if(user){
+            const Student = await Students.findById(id);
+            if(Student){
                 const result = await Students.updateOne({id}, {$set:data});
                 res.status(201).json(result);
             }
@@ -80,8 +80,8 @@ class User {
     async deactivate(req, res) {
         const {id} = req.params;
         try {
-            const user = await Students.findById(id);
-            let post = await user.updateOne({ "activity": 0 })
+            const Student = await Students.findById(id);
+            let post = await Student.updateOne({ "activity": 0 })
 
             res.status(200).json(post);
             
@@ -93,12 +93,12 @@ class User {
         let { password,confirmPassword } = req.body;
         try {
             if (password === confirmPassword) {
-                const user = await Students.findById(id);
-                const isMatch = await bcrypt.compare(password, user.password);
+                const Student = await Students.findById(id);
+                const isMatch = await bcrypt.compare(password, Student.password);
                 if (!isMatch) {
                     const salt = await bcrypt.genSalt(10);
                     password = await bcrypt.hash(password, salt);
-                    let post = await user.updateOne({ $set: {password}});
+                    let post = await Student.updateOne({ $set: {password}});
                     res.status(200).json(post);
                 }else {
                     res.status(400).json("Password Already Exist!");
@@ -112,19 +112,19 @@ class User {
     }
 
     async forgotPassword(req,res) {
-        // find if user of given email (req.body.email) exists
-        //create a link with user's id and token and send via mail
+        // find if Student of given email (req.body.email) exists
+        //create a link with Student's id and token and send via mail
         const {email} = req.body;
         try{
-            const user = await Students.findOne({email});
+            const Student = await Students.findOne({email});
             let Mail = new email();
-                Mail.resetPassword(user._id,user.email,user.name,user.verificationCode,(response) =>{
+                Mail.resetPassword(Student._id,Student.email,Student.name,Student.verificationCode,(response) =>{
                     if (response == 200) {
                         //  Signup Successfull & verification mail send
-                        res.status(201).json(user);
+                        res.status(201).json(Student);
                     } else {
                         //  Signup Successfull & but faile to send verification mail
-                        res.status(500).json(user);
+                        res.status(500).json(Student);
                         }
                 });
 
@@ -135,8 +135,8 @@ class User {
         const {id} = req.params;
         const {dpLink} = req.body;
         try{
-            const user = await Students.findByIdAndUpdate(id, {dpLink}, {new: true});
-            res.status(200).json(user.dpLink);
+            const Student = await Students.findByIdAndUpdate(id, {dpLink}, {new: true});
+            res.status(200).json(Student.dpLink);
         }
         catch(e){res.status(500).json(e)}
     }
@@ -144,4 +144,4 @@ class User {
 }
 
 
-module.exports = User;
+module.exports = Student;
