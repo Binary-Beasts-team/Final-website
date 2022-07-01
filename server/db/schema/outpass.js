@@ -22,12 +22,12 @@ const outpassSchema = new mongoose.Schema({
     days: {
         type: Number,
     },
-    Reason: {                // Profile image link
+    reason: {                // Profile image link
         type: String,
         required: true,
         trim: true,
     },
-    Destination : {               // Not necessary for normal user
+    destination : {               // Not necessary for normal user
         type: String,
         required: true,
         trim: true
