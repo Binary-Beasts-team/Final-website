@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const validator = require('validator');
-const Faculty = require('./faculty');
+const {Faculty} = require('./faculty');
 
 const studentSchema = new mongoose.Schema({
     name: {

@@ -1,6 +1,6 @@
 // Controllers for auth class goes here
 
-const Students = require('./../db/schema/Student');
+const Students = require('./../db/schema/student');
 const Utils = require('../services/util.services');
 const bcrypt = require("bcryptjs");
 const EmailService = require('./../services/email.services');
