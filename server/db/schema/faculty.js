@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 const validator = require('validator');
 
-const userSchema = new mongoose.Schema({
+const facultySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -48,12 +48,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         expires: '300s'
     },
-    facultyadvisorid:{
-        type: String,
+    mentees:{
+        type: [String],
     },
     outpass:{
         type: [String],
     }
 }, {timestamps: true});
-const Users = mongoose.model('User',userSchema);
-module.exports = Users;
+const Faculties = mongoose.model('Faculty',facultySchema);
+module.exports = Faculties;
