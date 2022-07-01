@@ -5,12 +5,12 @@ var Utils = require('./../util.services');
 
 let user = {}
 var router = new express.Router();
-const Users = require('./../../db/schema/user');
+const Student = require('./../../db/schema/user');
 
 const saveUser = async(user) =>{
     try {
         if(await Utils.notUsedEmail(user._json.email)){
-            const post = new Users({
+            const post = new Student({
                 name: user._json.given_name,
                 email: user._json.email,
                 verificationCode: await Utils.generateUniqueString(),
@@ -19,7 +19,7 @@ const saveUser = async(user) =>{
             const newUser = await post.save();
         }else{
             
-            const result = await Users.findOneAndUpdate({email:user._json.email},{googleVerification:true})
+            const result = await Student.findOneAndUpdate({email:user._json.email},{googleVerification:true})
         }
     } catch (error) {
         console.log(error);

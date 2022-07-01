@@ -2,11 +2,12 @@
 
 const mongoose = require("mongoose");
 const validator = require('validator');
+const {Student} = require('./student')
 
 const outpassSchema = new mongoose.Schema({
-    userId: {
-        type: String,
-        required: true,
+    studentId: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Student',
     },
     DOL:{                       // Date of Leaving
         type: Date,

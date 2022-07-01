@@ -1,15 +1,14 @@
 // Write the common used functions here...
 
-const User = require('../db/schema/user');
+const Student = require('../db/schema/student');
 const generateUniqueId = require('generate-unique-id');
 const { v4: uuidv4 } = require("uuid");
 const referralCodeGenerator = require('referral-code-generator')
 
 
-
 const notUsedEmail = async(email) =>{
     try{
-        const result = await User.findOne({email});
+        const result = await Student.findOne({email});
             if(result === null){
                 return true;
             }else{
@@ -18,6 +17,20 @@ const notUsedEmail = async(email) =>{
     }catch(error){
         console.log(error);
         return true;
+    }
+}
+
+const notUsedUserName = async(username) =>{
+    try {
+        const result = await Student.findOne({username: username});
+            if(result === null){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (error) {
+            console.log(error);
+            return true;
     }
 }
 
@@ -33,9 +46,42 @@ const DisconnectDB = async() =>{
     db.disconnectDB();
 }
 
+const generateUserName = async(name) =>{
+    try{
+        let symbols = ["@","#","$", "","*","_"];
+        const symbol = symbols[Math.floor(Math.random()*symbols.length)]
+        const id = await generateUniqueId({
+            length: 3,
+            useLetters: false
+            });
+            let userName = name + symbol + id
+            return userName;
+    }catch(error){
+        console.log(error);
+    }
+}
+
+const generateUniqueUserName = async(name) => {
+    let notFound = true;
+    let username;
+    while(notFound){
+        username = await generateUserName(name);
+        if(await notUsedUserName(username)){
+            notFound = false;
+        }
+    }
+    return username;
+}
+
 const generateUniqueString = async() =>{
     const String = uuidv4();
     return String;
 }
 
-module.exports = {notUsedEmail, ConnectDB, DisconnectDB,generateUniqueString};
+const getstudentregno = (email) =>{
+    let string = '@iiitdwd.ac.in';
+    const regno = email.replace(string,'')
+    return regno;
+}
+
+module.exports = {generateUniqueUserName, notUsedUserName, notUsedEmail, ConnectDB, DisconnectDB,generateUserName,generateUniqueString,getstudentregno};
