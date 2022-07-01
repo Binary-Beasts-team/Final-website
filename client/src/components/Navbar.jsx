@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { GrSearch } from 'react-icons/gr'
 
-
+ 
 
 export default function Navbar() {
 

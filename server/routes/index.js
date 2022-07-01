@@ -7,7 +7,7 @@ var Utills = require('./../services/util.services');
 
 Utills.ConnectDB((response) =>{
   console.log(response);
-})
+}) 
 
 
 //---------------------------------------------INSTANCE---------------------------------------------
