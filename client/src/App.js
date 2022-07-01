@@ -6,6 +6,7 @@ import React from 'react';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Profile from "./pages/Profile";
 
 
 function App() {
@@ -14,10 +15,10 @@ function App() {
     <ToastContainer position="top-center" autoClose="2500"/>
       <Router>
         <Routes>
-        <Route exact path="/" element={<Home/>} />
-
+          <Route exact path="/" element={<Home/>} />
           <Route exact path="/user/signup" element={<Signup />} />
           <Route exact path="/user/login" element={<Login />} />
+          <Route exact path="/profile" element={<Profile />} />
         </Routes>
       </Router>
     </>
