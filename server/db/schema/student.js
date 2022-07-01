@@ -2,8 +2,9 @@
 
 const mongoose = require("mongoose");
 const validator = require('validator');
+const Faculty = require('./faculty');
 
-const userSchema = new mongoose.Schema({
+const studentSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -49,11 +50,12 @@ const userSchema = new mongoose.Schema({
         expires: '300s'
     },
     facultyadvisorid:{
-        type: String,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Faculty',
     },
     outpass:{
         type: [String],
     }
 }, {timestamps: true});
-const Users = mongoose.model('User',userSchema);
-module.exports = Users;
+const Students = mongoose.model('Student',studentSchema);
+module.exports = Students;
