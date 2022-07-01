@@ -1,6 +1,7 @@
 // Controllers for auth class goes here
 
 const Students = require('../db/schema/student');
+const Faculties = require('../db/schema/faculty');
 const Utils = require('../services/util.services');
 const bcrypt = require("bcryptjs");
 const EmailService = require('../services/email.services');
@@ -22,12 +23,28 @@ class Auth {
     }
 
     async StudentLogin(req,res) {
-        const {email,password} = req.body;
+        const {user,password} = req.body;
         try {
-            const Student = await Students.findOne({email});
+            const Student = await Students.findOne({$or : [{email: user}, {username: user}]});
             const isMatch = await bcrypt.compare(password, Student.password);
             if(isMatch && Student.verified === true) {
                 res.status(200).send(Student);
+            }else{
+                res.status(400).json("Email Not Verified");
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error)
+        }
+    }
+
+    async FacultyLogin(req,res) {
+        const {user,password} = req.body;
+        try {
+            const Faculty = await Faculties.findOne({$or : [{email: user}, {username: user}]});
+            const isMatch = await bcrypt.compare(password, Faculty.password);
+            if(isMatch && Faculty.verified === true) {
+                res.status(200).send(Faculty);
             }else{
                 res.status(400).json("Email Not Verified");
             }

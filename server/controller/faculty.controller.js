@@ -14,16 +14,14 @@ class Faculty {
             let pass = await bcrypt.hash(password, 10); // Hashing the Password
 
             // Check if the entered Email is present in Database
-            if (await Utils.notUsedEmail(email)) {
-                const post = new Faculty({
+            if (await Utils.uniqueFacultyMail(email)) {
+                const post = new Faculties({
                     name: name,
                     username: await Utils.generateUniqueUserName(name),
                     email: email,
                     password: pass,
                     token: await Utils.generateUniqueString()
                 });
-
-                console.log(post);
 
                 const newFaculty = await post.save();
                 let Mail = new emailService();
@@ -116,8 +114,8 @@ class Faculty {
         const {email} = req.body;
         try{
             const  Faculty = await Faculties.findOne({email});
-            let Mail = new email();
-                Mail.resetPassword( Faculty._id, Faculty.email, Faculty.name, Faculty.verificationCode,(response) =>{
+            let Mail = new emailService();
+                Mail.passwordResetMail( Faculty._id, Faculty.email, Faculty.name, Faculty.verificationCode,(response) =>{
                     if (response == 200) {
                         //  Signup Successfull & verification mail send
                         res.status(201).json( Faculty);

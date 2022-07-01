@@ -117,8 +117,8 @@ class Student {
         const {email} = req.body;
         try{
             const Student = await Students.findOne({email});
-            let Mail = new email();
-                Mail.resetPassword(Student._id,Student.email,Student.name,Student.verificationCode,(response) =>{
+            let Mail = new emailService();
+                Mail.passwordResetMail(Student._id,Student.email,Student.name,Student.verificationCode,(response) =>{
                     if (response == 200) {
                         //  Signup Successfull & verification mail send
                         res.status(201).json(Student);

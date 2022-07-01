@@ -14,7 +14,7 @@ FacultyRouter.put('/:id/update',async(req,res) =>{Faculty.update(req,res)});    
 FacultyRouter.get('/:id',async(req,res) =>{Faculty.get(req,res)});                          //Get Faculty
 FacultyRouter.put('/:id/deactivate',async(req,res) =>{Faculty.deactivate(req,res)});        //Deactivate Faculty Acc.
 FacultyRouter.put('/:id/password',async(req,res) =>{Faculty.addPassword(req,res)})          // Adds password
-FacultyRouter.put('/:id/updateDP',async(req,res) =>{Faculty.updateDP(req,res)});            //Updates DP
+FacultyRouter.put('/:id/updatedp',async(req,res) =>{Faculty.updateDP(req,res)});            //Updates DP
 
 
 module.exports = FacultyRouter;
