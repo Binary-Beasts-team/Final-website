@@ -2,7 +2,7 @@
 
 //---------------------------------------------MODULES---------------------------------------------
 const express = require('express');
-const Auth = require("./../controller/auth");
+const Auth = require("./../controller/auth.controller");
 
 //---------------------------------------------INSTANCE---------------------------------------------
 let authRouter = new express.Router();

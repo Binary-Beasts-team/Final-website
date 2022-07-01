@@ -1,9 +1,9 @@
 // Controllers for auth class goes here
 
-const Students = require('./../db/schema/student');
+const Students = require('../db/schema/student');
 const Utils = require('../services/util.services');
 const bcrypt = require("bcryptjs");
-const EmailService = require('./../services/email.services');
+const EmailService = require('../services/email.services');
 
 class Auth {
     async emailVerification(req,res) {

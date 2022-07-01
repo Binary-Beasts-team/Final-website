@@ -1,6 +1,6 @@
 //---------------------------------------------MODULES---------------------------------------------
 var express = require('express');
-var userRouter = require("./student");
+var userRouter = require("./student.routes");
 var facultyRouter = require("./faculty.routes");
 var authRouter = require("./auth");
 var googleROuter = require('./../services/strategies/google')
