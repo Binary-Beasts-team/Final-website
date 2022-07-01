@@ -2,7 +2,7 @@
 
 //---------------------------------------------MODULES---------------------------------------------
 var express = require('express');
-const Students = require("../controller/student");
+const Students = require("../controller/student.controller");
 
 //---------------------------------------------INSTANCE---------------------------------------------
 var StudentRouter = new express.Router();

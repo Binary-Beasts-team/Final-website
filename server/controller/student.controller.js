@@ -30,7 +30,7 @@ class Student {
                         res.status(201).json(newStudent);
                     } else {
                         res.status(500).json(newStudent);
-                    }                
+                    }
                 });
 
             } else {
@@ -81,33 +81,33 @@ class Student {
         const {id} = req.params;
         try {
             const Student = await Students.findById(id);
-            let post = await Student.updateOne({ "activity": 0 })
-
+            let post = await Student.updateOne({ verified: false })
             res.status(200).json(post);
-            
-        }catch(e){return res.status(500).json(e)}
+        }
+        catch(error){
+            res.status(500).json(error)
+            console.log(error);
+        }
     }
 
     async addPassword(req, res) {
         const { id } = req.params;
-        let { password,confirmPassword } = req.body;
+        let { password } = req.body;
         try {
-            if (password === confirmPassword) {
-                const Student = await Students.findById(id);
-                const isMatch = await bcrypt.compare(password, Student.password);
-                if (!isMatch) {
-                    const salt = await bcrypt.genSalt(10);
-                    password = await bcrypt.hash(password, salt);
-                    let post = await Student.updateOne({ $set: {password}});
-                    res.status(200).json(post);
-                }else {
-                    res.status(400).json("Password Already Exist!");
-                }
+            const Student = await Students.findById(id);
+            const isMatch = await bcrypt.compare(password, Student.password);
+            if (!isMatch) {
+                const salt = await bcrypt.genSalt(10);
+                password = await bcrypt.hash(password, salt);
+                let post = await Student.updateOne({ $set: {password}});
+                res.status(200).json(post);
             }else {
-                res.status(400).json("password and confirm password does not match!");
+                res.status(400).json("Password Already Exist!");
             }
-        } catch (e) {
-            return res.status(500).json(e);
+        }
+        catch(error){
+            res.status(500).json(error)
+            console.log(error);
         }
     }
 
@@ -128,7 +128,11 @@ class Student {
                         }
                 });
 
-        } catch (e) { return res.status(500).json(e) }
+            }
+            catch(error){
+                res.status(500).json(error)
+                console.log(error);
+            }
     }
 
     async updateDP(req,res) {
@@ -138,8 +142,12 @@ class Student {
             const Student = await Students.findByIdAndUpdate(id, {dpLink}, {new: true});
             res.status(200).json(Student.dpLink);
         }
-        catch(e){res.status(500).json(e)}
+        catch(error){
+            res.status(500).json(error)
+            console.log(error);
+        }
     }
+    
     
 }
 
