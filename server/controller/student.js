@@ -1,11 +1,11 @@
 // Controllers for Students class goes here
 
 const Students = require('../db/schema/student');
-const Utils = require('./../services/util.services');
+const Utils = require('../services/util.services');
 const bcrypt = require("bcryptjs");
-const emailService = require('./../services/email.services')
+const emailService = require('../services/email.services')
 
-const Handler = require('./../services/Log.services');
+const Handler = require('../services/Log.services');
 const handler = new Handler();
 
 class Student {

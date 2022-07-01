@@ -5,7 +5,7 @@ var Utils = require('./../util.services');
 
 let user = {}
 var router = new express.Router();
-const Student = require('./../../db/schema/user');
+const Student = require('./../../db/schema/student');
 
 const saveUser = async(user) =>{
     try {
