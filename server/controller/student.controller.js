@@ -17,7 +17,7 @@ class Student {
             // Check if the entered Email is present in Database
             if (await Utils.notUsedEmail(email)) {
                 const post = new Students({
-                    name: name,
+                    name: email,
                     username: await Utils.generateUniqueUserName(name),
                     email: email,
                     password: pass,
@@ -27,7 +27,7 @@ class Student {
                 });
                 const newStudent = await post.save();
                 let Mail = new emailService();
-                Mail.mailVerification(newStudent._id, newStudent.email, newStudent.name, newStudent.verificationCode, (response) => {
+                Mail.mailVerification(newStudent._id, newStudent.email, newStudent.name, newStudent.token, (response) => {
                     if (response == 200) {
                         res.status(201).json(newStudent);
                     } else {

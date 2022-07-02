@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Outpass from "./pages/Outpass";
 import Profile from "./pages/Profile"
 import React from 'react';
+import Verify from "./pages/verify";
+
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,6 +26,7 @@ function App() {
           <Route exact path="/user/login" element={<Login />} />
           <Route exact path="/user/outpass" element={<Outpass />} />
           <Route exact path="/profile" element={<Profile />} />
+          <Route path="/verify/mail" element={<Verify />} />
         </Routes>
       </Router>
     </>

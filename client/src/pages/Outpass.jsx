@@ -3,7 +3,6 @@ import './../css/Outpass.css'
 import VerticalNavbar from '../components/verticalNavbar';
 import ProgressBar from '../components/progressBar';
 import OutpassCard from '../components/OutpassCard';
-import Emptycreatecard from '../components/emptycreatecard';
 
 const Outpass = () => {
     return (
@@ -16,7 +15,6 @@ const Outpass = () => {
                             <span>Create New</span>
                         </div>
                         <div className="info">
-                            <Emptycreatecard />
                             <OutpassCard />
                             <OutpassCard />
                         </div>

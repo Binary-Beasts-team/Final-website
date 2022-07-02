@@ -8,6 +8,10 @@ import { GrFacebook } from 'react-icons/gr'
 
 
 function Signup() {
+    // Submitted Email-Password
+    const email = useRef();
+    const password = useRef();
+    const rePassword = useRef();
     const navigate = useNavigate();
     const [userSignupInfo, setuserSignupInfo] = useState({
         userName: "Brij",
@@ -24,11 +28,9 @@ function Signup() {
     const handleLogin = () => {
         navigate('/user/login');
     }
-    // Submitted Email-Password
-    const email = useRef();
-    const password = useRef();
-    const rePassword = useRef();
-
+    const handleGoogleOnClick = () => {
+        window.location = '/auth/google'
+    }
     const handleSubmit = (e) => {
         e.preventDefault();         //prevents reloading page on Submit
     }
@@ -38,21 +40,16 @@ function Signup() {
 
         if (!email || !password || !confirmPassword) {
             toast.error("fill all the fields before sign up!!")
-
             return;
         }
-
         if (password != confirmPassword) {
             toast.error("Confirm Password doesn't Matches")
-
             return;
         }
-
         try {
-
             const loadToast = toast.loading("signing up.. wait!!")
             const res = await axios.post(
-                "/api/users/",
+                "/api/student/",
                 {
                     userName,
                     email,
@@ -74,7 +71,6 @@ function Signup() {
             }
         } catch (error) {
             toast.error("something went wrong cheack your internet connection!!")
-
         }
     };
 
@@ -93,9 +89,7 @@ function Signup() {
                             <input type="password" required placeholder="Re-Enter Password" className="signupInput" ref={rePassword} name="confirmPassword" value={userSignupInfo.confirmPassword} onChange={handleSignupChange} />
                             <button className="signupBtn" onClick={postSignupData}>Sign Up</button>
                             <div className="loginOptions">
-                                <button className="googleBtn">  Google</button>
-                                <button className="fbBtn"> Facebook</button>
-                                <button className="githubBtn"> GitHub</button>
+                                <button className="googleBtn" onClick={handleGoogleOnClick}>  Google</button>
                             </div>
 
                             <hr className="hr" />

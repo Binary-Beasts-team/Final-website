@@ -8,18 +8,19 @@ const EmailService = require('../services/email.services');
 
 class Auth {
     async emailVerification(req,res) {
-        const {id, token} = req.params;
-        try{
-            const Student = await Students.findById(id);
-            if(Student.verificationCode === token){
-                let post = await Student.updateOne({"activity": 1});
-                res.status(200).json(post);
-            }
-            else{
-                res.status(400).json("Invalid Link !!!");
-            }
-        }catch(e){return res.status(500).json(e)}
-        
+        const { userId, token } = req.params;
+        console.log("student");
+        try {
+          const student = await Students.findById(userId);
+          if (student.token === token) {
+            let post = await student.updateOne({ verified: true });
+            res.status(200).json(post);
+          } else {
+            res.status(400).json("Invalid Link !!!");
+          }
+        } catch (e) {
+          return res.status(500).json(e);
+        }
     }
 
     async StudentLogin(req,res) {

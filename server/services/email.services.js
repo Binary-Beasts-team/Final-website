@@ -32,29 +32,25 @@ let mailOptions = {
 };
 
 
-const apiHostUrl = "http://localhost:3000/api/auth/mailoptions"
+const apiHostUrl = "http://localhost:3000/"
 
 //---------------------------------------------CLASS---------------------------------------------
 
 let verificationMail = ``; 
 class Email {
     // Methods
-    // 1. Send a mail for Verification of Email Address
     mailVerification = async (userId,mail,name,token,callback) => {
         let subject = "Email Vericication"
         try {
-            let bodyContent = apiHostUrl +  `/mailverification/${userId}/${token}`
-            
+            let bodyContent = apiHostUrl +  `verify/mail/${userId}/${token}`
             mailOptions.subject = subject
             mailOptions.to = mail
             mailOptions.html = bodyContent
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
-                  // return(console.callback(error));
                     console.log(mail, name);
                     callback(error);
                 } else {
-                  // return(callback(200));
                 console.log('Email sent: ' + info.response);
                 callback(200);
                 }

@@ -50,7 +50,7 @@ const studentSchema = new mongoose.Schema({
     },
     token:{
         type: String,
-        expires: '300s'
+        expires: '300s',
     },
     facultyAdvisor:{
         type: String,
