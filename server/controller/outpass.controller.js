@@ -50,24 +50,34 @@ class Outpass {
                 .populate("facultyId");
             // if fid is of Facultyadvisor
             if (fid == student.facultyId._id && student.studentId.pendingoutpass.includes(id)) {
+
+                //If Approved by Faculty Advisor
                 if (approved) {
-                    const update = await student.updateOne({
-                        currentstatus: "Approved by faculty advisor",
+                    const update = await student.updateOne({                //update Status
+                        currentstatus: "Approved by Faculty Advisor",
                     });
-                    const updatefaculty = await Faculties.updateOne(
+                    const updatefaculty = await Faculties.updateOne(        //Move to approved list
                         { _id: student.facultyId },
                         {
                             $push: { approvedoutpass: id },
                             $pull: { pendingoutpass: id },
                         }
                     );
+
+                    //If outpass for > 10 days
                     if (student.days > 10) {
+
+                        //Mark this outpass as pending for Welfare Cordinator
                         const updatewelfareCordinator = await Faculties.updateOne(
                             { _id: student.studentId.welfareCordinator },
                             { $push: { pendingoutpass: id } }
                         );
-                        console.log("Approved by faculty advisor");
-                    } else {
+                        console.log("Approved by Faculty Advisor");
+                    } 
+
+                    //Else if outpass for <= 10 days => no need for furthur approvals
+                    // => Mark & Move to APPROVED in Student's Dashboard
+                    else {
                         const Approved = await Students.updateOne(
                             { _id: student.studentId._id },
                             {
@@ -75,12 +85,16 @@ class Outpass {
                                 $pull: { pendingoutpass: student.studentId._id },
                             }
                             );
-                        console.log("Approved by faculty advisor");
+                        console.log("Approved by Faculty Advisor");
                     }
-                } else {
+                } 
+
+                // IF Declined By faculty Advisor
+                else {
                     const update = await student.updateOne({
-                        currentstatus: "Request declined by faculty advisor",
+                        currentstatus: "Request declined by Faculty Advisor",
                     });
+                    //Move to declinedOutpass list
                     const updatefaculty = await Faculties.updateOne(
                         { _id: student.facultyId._id },
                         {
@@ -88,12 +102,12 @@ class Outpass {
                             $pull: { pendingoutpass: id },
                         }
                     );
-                    res.json("Request declined by faculty advisor")
+                    res.json("Request declined by Faculty Advisor")
                 }
-            } else if (
-                fid == student.studentId.welfareCordinator &&
-                student.facultyId.pendingoutpass.includes(id)
-            ) {
+            }
+            
+            // if fid is of welfare Cordinator
+            else if ( fid == student.studentId.welfareCordinator && student.facultyId.pendingoutpass.includes(id) ){
                 if (approved) {
                     const update = await student.updateOne({
                         currentstatus: "Approved by Welfare Cordinator",
@@ -105,13 +119,18 @@ class Outpass {
                             $pull: { pendingoutpass: id },
                         }
                     );
+
+                    //Passed to Warden
                     const updatewarden = await Faculties.updateOne(
                         { _id: student.studentId.warden },
                         { $push: { pendingoutpass: id } }
                     );
-                    res.json("Approved by Welfare Cordinator")
+                    res.status(200).json("Approved by Welfare Cordinator")
 
-                } else {
+                } 
+                
+                // Else if Request declined by Welfare Cordinator
+                else {
                     const update = await student.updateOne({
                         currentstatus: "Request declined by Welfare Cordinator",
                     });
@@ -122,12 +141,12 @@ class Outpass {
                             $pull: { pendingoutpass: id },
                         }
                     );
-                    res.json("Request declined by Welfare Cordinator")
+                    res.status(200).json("Request declined by Welfare Cordinator")
                 }
-            } else if (
-                fid == student.studentId.warden &&
-                student.facultyId.pendingoutpass.includes(id)
-            ) {
+            }
+            
+            // If fid is of Warden
+            else if ( fid == student.studentId.warden && student.facultyId.pendingoutpass.includes(id)) {
                 if (approved) {
                     const update = await student.updateOne({
                         currentstatus: "Approved by Warden",
@@ -162,7 +181,10 @@ class Outpass {
                     res.json("Request declined by Warden")
 
                 }
-            } else {
+            }
+            
+            // Request Just Sent => waiting for first approval
+            else {
                 if (approved) {
                     const studentsent = await Students.updateOne(
                         { _id: student.studentId._id },
@@ -176,9 +198,9 @@ class Outpass {
                         { $push: { pendingoutpass: id } }
                     );
                     const update = await student.updateOne({
-                        currentstatus: "Request Sent",
+                        currentstatus: "Request Sent to Faculty Advisor",
                     });
-                    res.json("Request Sent")
+                    res.status(200).json("Request Sent to Faculty Advisor")
 
                 }
             }
