@@ -2,6 +2,7 @@
 
 
 const Faculties = require('../db/schema/faculty');
+const Students = require("../db/schema/student");
 const Utils = require('./../services/util.services');
 const bcrypt = require("bcryptjs");
 const emailService = require('./../services/email.services')
@@ -137,6 +138,33 @@ class Faculty {
         }
         catch(e){res.status(500).json(e)}
     }
+
+    async getMentees(req,res) {
+        try{
+            const {id}=req.params;
+            const faculty = await Faculties.findById(id);
+
+            let Mentees = [];
+
+            faculty.mentees.map( async(mentee) => {
+                
+                //get each mentee & push to Mentees Array
+                let student = await Students.findById(mentee);
+
+                //!---------"student" IS NOT GETTING PUSHED TO MENTEES ARRAY ------------
+                Mentees.push(student);
+            })
+            
+            //Send Array of Objects
+            res.status(200).json(Mentees);
+            
+        }
+        catch(error){
+            res.status(404).json(error)
+            console.log(error);
+        }
+    }
+
 }
 
 module.exports = Faculty;
