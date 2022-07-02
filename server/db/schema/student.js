@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const validator = require('validator');
-const {Faculty} = require('./faculty');
+
 
 const studentSchema = new mongoose.Schema({
     name: {
@@ -65,16 +65,21 @@ const studentSchema = new mongoose.Schema({
         default: "62c00c3afadc00ed8e66fdce"
     },
     outpass:{
-        type: [String],
+        type: [{type:mongoose.Schema.Types.ObjectId,
+            ref:'Outpass'}]
     },
     pendingoutpass:{
-        type:[String]
+        type: [{type:mongoose.Schema.Types.ObjectId,
+        ref:'Outpass'}]
     },
     approvedoutpass:{
-        type:[String]
+        type: [{type:mongoose.Schema.Types.ObjectId,
+        ref:'Outpass'}]
     },
     declinedoutpass:{
-        type:[String]
+        type: [
+            {type:mongoose.Schema.Types.ObjectId,
+            ref:'Outpass'}]
     },
 }, {timestamps: true});
 const Students = mongoose.model('Student',studentSchema);
