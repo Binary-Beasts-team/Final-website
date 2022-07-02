@@ -45,19 +45,19 @@ class Outpass {
         const { fid, approved } = req.body;
 
         try {
-            const student = await Outpasses.findById(id)
+            const outpass = await Outpasses.findById(id)
                 .populate("studentId")
                 .populate("facultyId");
             // if fid is of Facultyadvisor
-            if (fid == student.facultyId._id && student.studentId.pendingoutpass.includes(id)) {
+            if (fid == outpass.facultyId._id && outpass.studentId.pendingoutpass.includes(id)) {
 
                 //If Approved by Faculty Advisor
                 if (approved) {
-                    const update = await student.updateOne({                //update Status
+                    const update = await outpass.updateOne({                //update Status
                         currentstatus: "Approved by Faculty Advisor",
                     });
                     const updatefaculty = await Faculties.updateOne(        //Move to approved list
-                        { _id: student.facultyId },
+                        { _id: outpass.facultyId },
                         {
                             $push: { approvedoutpass: id },
                             $pull: { pendingoutpass: id },
@@ -67,11 +67,11 @@ class Outpass {
                         updatefaculty.approvedoutpass = Utils.removeDuplicates(updatefaculty.approvedoutpass);
 
                     //If outpass for > 10 days
-                    if (student.days > 10) {
+                    if (outpass.days > 10) {
 
                         //Mark this outpass as pending for Welfare Cordinator
                         const updatewelfareCordinator = await Faculties.updateOne(
-                            { _id: student.studentId.welfareCordinator },
+                            { _id: outpass.studentId.welfareCordinator },
                             { $push: { pendingoutpass: id } }
                         );
                         console.log("Approved by Faculty Advisor");
@@ -81,10 +81,10 @@ class Outpass {
                     // => Mark & Move to APPROVED in Student's Dashboard
                     else {
                         const Approved = await Students.updateOne(
-                            { _id: student.studentId._id },
+                            { _id: outpass.studentId._id },
                             {
                                 $push: { approvedoutpass: id },
-                                $pull: { pendingoutpass: student.studentId._id },
+                                $pull: { pendingoutpass: outpass.studentId._id },
                             }
                             );
                         console.log("Approved by Faculty Advisor");
@@ -93,12 +93,12 @@ class Outpass {
 
                 // IF Declined By faculty Advisor
                 else {
-                    const update = await student.updateOne({
+                    const update = await outpass.updateOne({
                         currentstatus: "Request declined by Faculty Advisor",
                     });
                     //Move to declinedOutpass list
                     const updatefaculty = await Faculties.updateOne(
-                        { _id: student.facultyId._id },
+                        { _id: outpass.facultyId._id },
                         {
                             $push: { declinedoutpass: id },
                             $pull: { pendingoutpass: id },
@@ -109,13 +109,13 @@ class Outpass {
             }
             
             // if fid is of welfare Cordinator
-            else if ( fid == student.studentId.welfareCordinator && student.facultyId.pendingoutpass.includes(id) ){
+            else if ( fid == outpass.studentId.welfareCordinator && outpass.facultyId.pendingoutpass.includes(id) ){
                 if (approved) {
-                    const update = await student.updateOne({
+                    const update = await outpass.updateOne({
                         currentstatus: "Approved by Welfare Cordinator",
                     });
                     const updatefaculty = await Faculties.updateOne(
-                        { _id: student.studentId.welfareCordinator },
+                        { _id: outpass.studentId.welfareCordinator },
                         {
                             $push: { approvedoutpass: id },
                             $pull: { pendingoutpass: id },
@@ -126,7 +126,7 @@ class Outpass {
 
                     //Passed to Warden
                     const updatewarden = await Faculties.updateOne(
-                        { _id: student.studentId.warden },
+                        { _id: outpass.studentId.warden },
                         { $push: { pendingoutpass: id } }
                     );
                     res.status(200).json("Approved by Welfare Cordinator")
@@ -135,11 +135,11 @@ class Outpass {
                 
                 // Else if Request declined by Welfare Cordinator
                 else {
-                    const update = await student.updateOne({
+                    const update = await outpass.updateOne({
                         currentstatus: "Request declined by Welfare Cordinator",
                     });
                     const updatefaculty = await Faculties.updateOne(
-                        { _id: student.studentId.welfareCordinator },
+                        { _id: outpass.studentId.welfareCordinator },
                         {
                             $push: { declinedoutpass: id },
                             $pull: { pendingoutpass: id },
@@ -150,13 +150,13 @@ class Outpass {
             }
             
             // If fid is of Warden
-            else if ( fid == student.studentId.warden && student.facultyId.pendingoutpass.includes(id)) {
+            else if ( fid == outpass.studentId.warden && outpass.facultyId.pendingoutpass.includes(id)) {
                 if (approved) {
-                    const update = await student.updateOne({
+                    const update = await outpass.updateOne({
                         currentstatus: "Approved by Warden",
                     });
                     const updatefaculty = await Faculties.updateOne(
-                        { _id: student.studentId.warden },
+                        { _id: outpass.studentId.warden },
                         {
                             $push: { approvedoutpass: id },
                             $pull: { pendingoutpass: id },
@@ -166,7 +166,7 @@ class Outpass {
                     updatefaculty.approvedoutpass = Utils.removeDuplicates(updatefaculty.approvedoutpass);
 
                     const Userapproved = await Students.updateOne(
-                        { _id: student.studentId._id },
+                        { _id: outpass.studentId._id },
                         {
                             $push: { approvedoutpass: id },
                             $pull: { pendingoutpass: id }
@@ -178,11 +178,11 @@ class Outpass {
                     res.json("Approved by Warden")
 
                 } else {
-                    const update = await student.updateOne({
+                    const update = await outpass.updateOne({
                         currentstatus: "Request declined by Warden",
                     });
                     const updatefaculty = await Faculties.updateOne(
-                        { _id: student.studentId.warden },
+                        { _id: outpass.studentId.warden },
                         {
                             $push: { declinedoutpass: id },
                             $pull: { pendingoutpass: id },
@@ -197,17 +197,17 @@ class Outpass {
             else {
                 if (approved) {
                     const studentsent = await Students.updateOne(
-                        { _id: student.studentId._id },
+                        { _id: outpass.studentId._id },
                         {
                             $push: { pendingoutpass: id },
                             $pull: { outpass: id },
                         }
                     );
                     const updatefaculty = await Faculties.updateOne(
-                        { _id: student.studentId.facultyAdvisor },
+                        { _id: outpass.studentId.facultyAdvisor },
                         { $push: { pendingoutpass: id } }
                     );
-                    const update = await student.updateOne({
+                    const update = await outpass.updateOne({
                         currentstatus: "Request Sent to Faculty Advisor",
                     });
                     res.status(200).json("Request Sent to Faculty Advisor")
