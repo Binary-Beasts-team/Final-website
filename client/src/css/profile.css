@@ -16,7 +16,7 @@
     /* left: 0;
     right: 0; */
     margin-left: 3rem;
-    top: 5rem;
+    top: 9rem;
 }
 
 .profPicEdit {
@@ -75,11 +75,18 @@
 }
 
 .profileIcons {
-    margin: 1.32rem;
+    margin: 1.2rem;
 }
 
-.edit {
+.editIcon {
     cursor: pointer;
+    color: blue;
+    font-size: larger;
+}
+.verifiedIcon {
+    cursor: pointer;
+    color: green;
+    font-size: larger;
 }
 
 .keyItem {

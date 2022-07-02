@@ -109,11 +109,11 @@ function Login() {
                     <form className="loginBox" onSubmit={handleSubmit}>
                         <input placeholder="Email" type="email" required className="loginInput" ref={email} name="email" value={userLoginInfo.email} onChange={handleLoginChange}/>
                         <input placeholder="Password" type="password" required className="loginInput" ref={password} name="password" value={userLoginInfo.password} onChange={handleLoginChange}/>
-                        <Checkbox
+                        {/* <Checkbox
                             label="Faculty"
                             value={checked}
                             onChange={handleChange}
-                        />
+                        /> */}
                         <button className="loginBtn" onClick={postLoginData}>Login In</button>
                         <hr className="hr"/>
                         <div className="loginOptions">

@@ -1,17 +1,41 @@
-import React from 'react'
 import "../css/profile.css"
 import {MdVerified} from "react-icons/md"
 import {AiFillEdit} from "react-icons/ai"
+import {useEffect, useState} from "react";
+import {useParams} from "react-router";
+
+import axios from "axios";
 
 function Profile() {
+
+    const [student, setStudent] = useState({});
+    const [facultyAdv, setFacultyAdv] = useState("NOT SET");
+    const id = useParams().id;
+
+    //fetch details from backend
+    useEffect(()=>{
+        async function fetchData(){
+
+            //Fetch Student
+            var stud = await axios.get(`api/student/${id}`);
+            setStudent(stud.data);
+
+            //Fetch faculty Advisor of the student
+            var facAdv = await axios.get(`api/faculty/${stud.data.facultyAdvisor}`);
+            setFacultyAdv(facAdv.data.name);
+        };
+        fetchData();
+    },[id])
+
+
   return (
     <div className='profile'>
         <img src="/images/coverpic.jpg" alt="" className="coverPic" />
 
-        <img src="/images/user.jpg" alt="" className="userPic" />
+        <img src={student.dpLink || "/images/user.jpg"} alt="" className="userPic" />
         <AiFillEdit className='profPicEdit'/>
 
-        <h4 className="profileName">John Doe</h4>
+        <h4 className="profileName">{student.name}</h4>
 
         <hr className='phr'/>
         <h4 className="urAccText">Your Account</h4>
@@ -25,20 +49,20 @@ function Profile() {
                 <span className='advisor keyItem'>Password</span>
             </div>
             <div className="profileValueBox">
-                <span className='username listItem'>johnDoe231</span>
-                <span className='regNo listItem'>20bcs070</span>
-                <span className='userEmail listItem'>20bcs070@iiitdwd.ac.in</span>
-                <span className='contactNo listItem'>9087654321</span>
-                <span className='advisor listItem'>Dr. Prabhu Prasad</span>
+                <span className='username listItem'>{student.username}</span>
+                <span className='regNo listItem'>{student.regNo}</span>
+                <span className='userEmail listItem'>{student.email}</span>
+                <span className='contactNo listItem'>{student.contactNo}</span>
+                <span className='advisor listItem'>{facultyAdv}</span>
                 <span className='advisor listItem'>***********</span>
             </div>
             <div className="profileIconBox">
-                <span className='edit profileIcons'><AiFillEdit style={{ color: "blue" }}/></span>
-                <span className='profileIcons'><MdVerified style={{ color: "green" }}/></span>
-                <span className='profileIcons'><MdVerified style={{ color: "green" }}/></span>
-                <span className='edit profileIcons'><AiFillEdit style={{ color: "blue" }}/></span>
-                <span className='profileIcons'><MdVerified style={{ color: "green" }}/></span>
-                <span className='edit profileIcons'><AiFillEdit style={{ color: "blue" }}/></span>
+                <span className='profileIcons'><AiFillEdit className="editIcon"/></span>
+                <span className='profileIcons'><MdVerified  className="verifiedIcon"/></span>
+                <span className='profileIcons'><MdVerified className="verifiedIcon"/></span>
+                <span className='profileIcons'><AiFillEdit className="editIcon"/></span>
+                <span className='profileIcons'><AiFillEdit className="editIcon"/></span>
+                <span className='profileIcons'><AiFillEdit className="editIcon"/></span>
             </div>
         </div>
         <hr className='phr' />

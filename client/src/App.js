@@ -26,7 +26,7 @@ function App() {
           <Route exact path="/user/signup" element={<Signup />} />
           <Route exact path="/user/login" element={<Login />} />
           <Route exact path="/user/outpass" element={<Outpass />} />
-          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/:id" element={<Profile />} />
           <Route exact path="/verify/mail" element={<Verify />} />
           <Route exact path="/verify/resetpassword" element={<Resetpassword />} />
           <Route exact path="/apply" element={<OutpassForm />} />
