@@ -15,6 +15,7 @@ StudentRouter.get('/:id',async(req,res) =>{Student.get(req,res)});            //
 StudentRouter.put('/:id/deactivate',async(req,res) =>{Student.deactivate(req,res)});            //deactivate Student Acc.
 StudentRouter.put('/:id/password',async(req,res) =>{Student.addPassword(req,res)})
 StudentRouter.put('/:id/updateDP',async(req,res) =>{Student.updateDP(req,res)});            //upload DP
+StudentRouter.put('/:id/updatefaculty',async(req,res) =>{Student.updateFacultyAdv(req,res)});            //updateFacultyAdvisor
 
 
 module.exports = StudentRouter;
