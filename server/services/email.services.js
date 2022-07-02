@@ -66,7 +66,7 @@ class Email {
         let subject = "Reset Password | Binary Beasts"
         try {
             let bodyContent = `Dear User ${name} ! Please Visit this Link to Reset your Password:  
-            ${apiHostUrl}/resetpassword/${userId}/${token}`;
+            ${apiHostUrl}verify/resetpassword?userId=${userId}&token=${token}`;
             
             mailOptions.subject = subject
             mailOptions.to = mail

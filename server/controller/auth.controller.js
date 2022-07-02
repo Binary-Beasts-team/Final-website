@@ -24,9 +24,10 @@ class Auth {
 
     async StudentLogin(req,res) {
         const {user,password} = req.body;
+        console.log(req.body);
         try {
             const Student = await Students.findOne({$or : [{email: user}, {username: user}]});
-            const isMatch = await bcrypt.compare(password, Student.password);
+            const isMatch = bcrypt.compare(password, Student.password);
             if(isMatch && Student.verified === true) {
                 res.status(200).send(Student);
             }else{
@@ -54,44 +55,15 @@ class Auth {
         }
     }
 
-    //Generate password Reset link and Send via Mail
-    async forgotPassword(req,res) {
-        // find if Student of given email (req.body.email) exists
-        //create a link with Student's id and token and send via mail
-        const {email} = req.body;
-        console.log(email);
-        try{
-            const Student = await Students.findOne({email});
-            if(!Student){return res.status(400).json("Student Does Not Exist !")}
-
-            let Mail = new EmailService();
-                Mail.passwordResetMail(Student._id,Student.email,Student.name,Student.verificationCode,(response) =>{
-                    console.log(response);
-                    if (response == 200) {
-                        //Mail Sent
-                        res.status(201).json(Student);
-                    }
-                    else {
-                        //  Signup Successful & but failed to send verification mail
-                        res.status(500).json("Mail Not Sent");
-                        }
-                });
-
-        } catch (e) { return res.status(500).json(e) }
-    }
-
     // verify Link and Change  Password
     async resetPassword(req,res) {
-        const {password, ConfirmPassword} = req.body
-        const {id, token} = req.params
-        if(password !== ConfirmPassword){
-            return res.status(400).json("Both Password must be same !");
-        }
+        const {password} = req.body
+        const {userId, token} = req.params
         let newPassword = password;
         try{
-            const Student = await Students.findById(id);
+            const student = await Students.findById(userId);
             //if token matches
-            if(Student.verificationCode === token){
+            if(student.token === token){
 
                 //Hash Password
                 const salt = await bcrypt.genSalt(10);
@@ -100,8 +72,8 @@ class Auth {
                 let newToken = await Utils.generateUniqueString();
 
                 //Update Password & token
-                let post = await Student.updateOne({$set:{
-                    verificationCode: newToken,
+                let post = await student.updateOne({$set:{
+                    token: newToken,
                     password: newPassword
                 }});
                 res.status(200).json(post);

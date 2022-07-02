@@ -32,6 +32,32 @@ function Login() {
         e.preventDefault();         //prevents reloading page on Submit
     }
 
+    const handleForgotPassword = async () => {
+        const { email } = userLoginInfo;
+        
+        const Loadtoast = toast.loading("logging in wait.....");
+
+        if (!email) {
+            toast.error("fill the email first!!")
+            return;
+        }
+        try {
+            const res = await axios.put(
+                "/api/student/forgotpassword",{
+                    email,
+                });
+            if (res) {
+                toast.success("sent the verification email to your registered email address !!");
+            }
+
+            toast.dismiss(Loadtoast);
+        } catch (error) {
+            toast.dismiss(Loadtoast);
+
+            toast.error("something went wrong cheack your internet connection!!")
+            console.log("wrong credentials error in verfication try again !!!! ");
+        }
+    };
     const postLoginData = async () => {
         const { email, password } = userLoginInfo;
         
@@ -43,8 +69,8 @@ function Login() {
         }
         try {
             const res = await axios.post(
-                "/api/auth/login",{
-                    email,
+                "/api/auth/student/login",{
+                    user:email,
                     password
                 });
             var data = {email:res.data.email, _id:res.data._id, img: res.data.dpLink, name:res.data.name}
@@ -78,7 +104,7 @@ function Login() {
                         <div className="loginOptions">
                             <button className="googleBtn" onClick={handleGoogleOnClick}>  Google</button>
                         </div>
-                        <Link to="/" className="loginForgot">Forgot Password ?</Link>
+                        <button onClick={handleForgotPassword} className="loginForgot">Forgot Password ?</button>
                         <hr className="hr"/>
                         <span className="newText">New to Zomato?
                             <Link className="signUpBtn" to="/user/signup">Create Account</Link>

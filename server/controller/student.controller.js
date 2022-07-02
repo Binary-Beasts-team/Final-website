@@ -119,10 +119,11 @@ class Student {
         // find if Student of given email (req.body.email) exists
         //create a link with Student's id and token and send via mail
         const {email} = req.body;
+        console.log(email);
         try{
             const Student = await Students.findOne({email});
             let Mail = new emailService();
-                Mail.passwordResetMail(Student._id,Student.email,Student.name,Student.verificationCode,(response) =>{
+                Mail.passwordResetMail(Student._id,Student.email,Student.name,Student.token,(response) =>{
                     if (response == 200) {
                         //  Signup Successfull & verification mail send
                         res.status(201).json(Student);
