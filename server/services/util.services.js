@@ -113,4 +113,9 @@ const getstudentregno = (email) =>{
     return regno;
 }
 
-module.exports = {generateUniqueUserName, notUsedUserName, uniqueFacultyUsername, notUsedEmail, uniqueFacultyMail, ConnectDB, DisconnectDB,generateUserName,generateUniqueString,getstudentregno};
+const removeDuplicates = (arr) => {
+    return arr.filter((item,
+        index) => arr.indexOf(item) === index);
+}
+
+module.exports = {removeDuplicates, generateUniqueUserName, notUsedUserName, uniqueFacultyUsername, notUsedEmail, uniqueFacultyMail, ConnectDB, DisconnectDB,generateUserName,generateUniqueString,getstudentregno};

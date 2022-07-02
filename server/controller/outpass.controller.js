@@ -61,8 +61,10 @@ class Outpass {
                         {
                             $push: { approvedoutpass: id },
                             $pull: { pendingoutpass: id },
-                        }
-                    );
+                        });
+
+                        //Handles Multiple approvals of same Outpass
+                        updatefaculty.approvedoutpass = Utils.removeDuplicates(updatefaculty.approvedoutpass);
 
                     //If outpass for > 10 days
                     if (student.days > 10) {
@@ -117,8 +119,10 @@ class Outpass {
                         {
                             $push: { approvedoutpass: id },
                             $pull: { pendingoutpass: id },
-                        }
-                    );
+                        });
+
+                    //Handles Multiple approvals of same Outpass
+                    updatefaculty.approvedoutpass = Utils.removeDuplicates(updatefaculty.approvedoutpass);
 
                     //Passed to Warden
                     const updatewarden = await Faculties.updateOne(
@@ -156,15 +160,21 @@ class Outpass {
                         {
                             $push: { approvedoutpass: id },
                             $pull: { pendingoutpass: id },
-                        }
-                    );
+                        });
+
+                    //Handles Multiple approvals of same Outpass
+                    updatefaculty.approvedoutpass = Utils.removeDuplicates(updatefaculty.approvedoutpass);
+
                     const Userapproved = await Students.updateOne(
                         { _id: student.studentId._id },
                         {
                             $push: { approvedoutpass: id },
                             $pull: { pendingoutpass: id }
-                        }
-                    );
+                        });
+
+                    //Handles Multiple approvals of same Outpass
+                    Userapproved.approvedoutpass = Utils.removeDuplicates(Userapproved.approvedoutpass);
+
                     res.json("Approved by Warden")
 
                 } else {
