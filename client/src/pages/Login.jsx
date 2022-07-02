@@ -14,8 +14,18 @@ function Login() {
     const [userLoginInfo, setuserLoginInfo] = useState({
         email: "",
         password: "",
+        faculty:false
     });
     const [user,setUser] = useState({})
+
+    const Checkbox = ({ label, value, onChange }) => {
+        return (
+          <label>
+            <input type="checkbox" checked={value} onChange={onChange} />
+            {label}
+          </label>
+        );
+      };
 
     const handleGoogleOnClick = () => {
         window.location = '/auth/google'
@@ -26,7 +36,7 @@ function Login() {
         const name = e.target.name;
         setuserLoginInfo({ ...userLoginInfo, [name]: val });
     };
-    
+    console.log(userLoginInfo);
      // Submitted Email-Password
     const handleSubmit=(e)=>{
         e.preventDefault();         //prevents reloading page on Submit
@@ -99,6 +109,11 @@ function Login() {
                     <form className="loginBox" onSubmit={handleSubmit}>
                         <input placeholder="Email" type="email" required className="loginInput" ref={email} name="email" value={userLoginInfo.email} onChange={handleLoginChange}/>
                         <input placeholder="Password" type="password" required className="loginInput" ref={password} name="password" value={userLoginInfo.password} onChange={handleLoginChange}/>
+                        <Checkbox
+                            label="Faculty"
+                            value={checked}
+                            onChange={handleChange}
+                        />
                         <button className="loginBtn" onClick={postLoginData}>Login In</button>
                         <hr className="hr"/>
                         <div className="loginOptions">

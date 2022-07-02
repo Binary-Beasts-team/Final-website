@@ -11,9 +11,7 @@ class Faculty {
     async create(req, res) {
         try {
             const {name,email,password} = req.body;
-
             let pass = await bcrypt.hash(password, 10); // Hashing the Password
-
             // Check if the entered Email is present in Database
             if (await Utils.uniqueFacultyMail(email)) {
                 const post = new Faculties({
@@ -142,22 +140,9 @@ class Faculty {
     async getMentees(req,res) {
         try{
             const {id}=req.params;
-            const faculty = await Faculties.findById(id);
-
-            let Mentees = [];
-
-            faculty.mentees.map( async(mentee) => {
-                
-                //get each mentee & push to Mentees Array
-                let student = await Students.findById(mentee);
-
-                //!---------"student" IS NOT GETTING PUSHED TO MENTEES ARRAY ------------
-                Mentees.push(student);
-            })
-            
-            //Send Array of Objects
-            res.status(200).json(Mentees);
-            
+            const faculty = await Faculties.findById(id).populate('mentees');
+            console.log(faculty.mentees);
+            res.status(200).json(faculty.mentees)
         }
         catch(error){
             res.status(404).json(error)
