@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const validator = require('validator');
+const {Student} = require('./student')
 
 const facultySchema = new mongoose.Schema({
     name: {
@@ -49,7 +50,9 @@ const facultySchema = new mongoose.Schema({
         expires: '300s'
     },
     mentees:{
-        type: [String],
+        type: [
+            {type:mongoose.Schema.Types.ObjectId,
+            ref:'Student'}],
     },
     outpass:{
         type: [String],
