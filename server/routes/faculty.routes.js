@@ -15,6 +15,7 @@ FacultyRouter.get('/:id',async(req,res) =>{Faculty.get(req,res)});              
 FacultyRouter.put('/:id/deactivate',async(req,res) =>{Faculty.deactivate(req,res)});        //Deactivate Faculty Acc.
 FacultyRouter.put('/:id/password',async(req,res) =>{Faculty.addPassword(req,res)})          // Adds password
 FacultyRouter.put('/:id/updatedp',async(req,res) =>{Faculty.updateDP(req,res)});            //Updates DP
+FacultyRouter.get('/:id/getmentees',async(req,res) =>{Faculty.getMentees(req,res)});            // getMentees
 
 
 module.exports = FacultyRouter;
