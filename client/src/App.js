@@ -27,7 +27,7 @@ function App() {
           <Route exact path="/user/login" element={<Login />} />
           <Route exact path="/user/outpass" element={<Outpass />} />
           <Route exact path="/profile" element={<Profile />} />
-          <Route path="/verify/mail" element={<Verify />} />
+          <Route exact path="/verify/mail" element={<Verify />} />
           <Route exact path="/apply" element={<OutpassForm />} />
         </Routes>
       </Router>

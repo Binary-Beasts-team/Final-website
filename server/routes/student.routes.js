@@ -9,7 +9,7 @@ var StudentRouter = new express.Router();
 let Student = new Students();
 
 StudentRouter.post('/',async(req,res) =>{Student.create(req,res)});  // Create a new Student
-StudentRouter.get('/forgotpassword',async(req,res) =>{Student.forgotPassword(req,res)});      
+StudentRouter.put('/forgotpassword',async(req,res) =>{Student.forgotPassword(req,res)});      
 StudentRouter.put('/:id/update',async(req,res) =>{Student.update(req,res)});  // Update Student
 StudentRouter.get('/:id',async(req,res) =>{Student.get(req,res)});            //get Student
 StudentRouter.put('/:id/deactivate',async(req,res) =>{Student.deactivate(req,res)});            //deactivate Student Acc.
