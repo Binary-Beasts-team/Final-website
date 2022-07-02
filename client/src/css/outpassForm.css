@@ -1,0 +1,51 @@
+.outerDivForm {
+    display: flex;
+    justify-content: center;
+    background-image: url("./images/bgimg.jpg");
+    height: 93vh;
+}
+
+.outpassForm {
+    margin: 2rem;
+    padding: 1rem;
+    width: 50rem;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 14px;
+    background-color: white;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    height: fit-content;
+}
+
+.outpassFormTitle {
+    color: black;
+    font-size: larger;
+    font-weight: bold;
+    display: flex; 
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+
+.formKey {
+    color: rgb(0, 0, 0);
+}
+
+.formInput {
+    background-color: #f7f7f7;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: center;
+}
+.submitBtn {
+    background-color: rgb(5, 176, 5) !important;
+    width: 20%;
+    border: none;
+    border-radius: 14px;
+    margin: 1rem;
+}
+
+.submitBtn:hover {
+    background-color: rgb(0, 144, 0) !important;
+}

@@ -9,6 +9,7 @@ import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "./components/Navbar";
+import OutpassForm from "./pages/OutpassForm";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/user/login" element={<Login />} />
           <Route exact path="/user/outpass" element={<Outpass />} />
           <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/apply" element={<OutpassForm />} />
         </Routes>
       </Router>
     </>

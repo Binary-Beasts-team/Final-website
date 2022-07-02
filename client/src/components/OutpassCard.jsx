@@ -24,7 +24,7 @@ function OutpassCard() {
             <li className="list-group-item"><span className='outpassTitle'>Reason:</span>Summer Break</li>
             <li className="list-group-item"><span className='outpassTitle'>Destination:</span>Patna</li>
         </ul>
-        <Link to="" class="btn btn-primary" target="_blank">Download Outpass</Link>
+        <Link to="" class="btn btn-primary downloadBtn" target="_blank">Download Outpass</Link>
     </div>
     </>
   )
