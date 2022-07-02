@@ -16,30 +16,31 @@ class Outpass {
 
             var date1 = new Date(dol);
             var date2 = new Date(dor);
-
-            const days = Math.round(Math.abs((date1 - date2) / (1000 * 60 * 60 * 24)));  
-            console.log(days);
+            const student = await Students.findById(id);
+            const days = Math.round(Math.abs((date1 - date2) / (1000 * 60 * 60 * 24)));
             if (days > 10) {
                 const post = new Outpasses({
                     studentId: id,
+                    facultyId: student.facultyadvisorid,
                     DOL: dol,
                     DOR: dor,
                     days: days,
                     reason: reason,
                     destination: destination,
-                    approvedstatus: [false, false, false, false]
+                    approvedstatus: [1, 1, 1, 1]
                 });
                 const newStudent = await post.save();
                 res.status(200).json(post);
             } else {
                 const post = new Outpasses({
                     studentId: id,
+                    facultyId: student.facultyadvisorid,
                     DOL: dol,
                     DOR: dor,
                     days: days,
                     reason: reason,
                     destination: destination,
-                    approvedstatus: [false, false, false]
+                    approvedstatus: [1, 1]
                 });
                 const newStudent = await post.save();
                 res.status(200).json(post);
@@ -51,6 +52,20 @@ class Outpass {
         }
     }
 
+    async update(req,res) {
+        const {id} = req.params;
+        const {fid,approved} = req.body;
+
+        try {
+            const student = await Outpass.findById(id).populate('studentId');
+            console.log(student);
+            // const update = await Outpass.findByIdAndUpdate(id,{approved}
+        } catch (error) {
+            res.status(404).json(error)
+            console.log(error);
+        }
+    }
+    
     async delete(req, res) {
         const {id} = req.params;
         try {
