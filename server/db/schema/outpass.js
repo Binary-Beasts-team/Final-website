@@ -3,11 +3,16 @@
 const mongoose = require("mongoose");
 const validator = require('validator');
 const {Student} = require('./student')
+const {Faculty} = require('./faculty')
 
 const outpassSchema = new mongoose.Schema({
     studentId: {
         type:mongoose.Schema.Types.ObjectId,
         ref:'Student',
+    },
+    facultyId: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Faculty',
     },
     DOL:{                       // Date of Leaving
         type: Date,
@@ -33,7 +38,7 @@ const outpassSchema = new mongoose.Schema({
         trim: true
     },
     approvedstatus:{
-        type: [Boolean],
+        type: [Number],
     }
 }, {timestamps: true});
 const Outpasses = mongoose.model('Outpass',outpassSchema);
