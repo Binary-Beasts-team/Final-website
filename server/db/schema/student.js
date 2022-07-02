@@ -52,15 +52,15 @@ const studentSchema = new mongoose.Schema({
         type: String,
         expires: '300s'
     },
-    facultyAdvisorEmail:{
+    facultyAdvisor:{
         type: String,
         default: ""
     },
     welfareCordinator : {
         type: String,
-        default: "keshavjha018@gmail.com"
+        default: "62bf5362c4a9defb82b69f49"
     },
-    wardenMail : {
+    warden : {
         type: String,
         default: ""
     },

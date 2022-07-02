@@ -161,10 +161,29 @@ class Student {
 
             // If faculty Advisor exist:
             //add faculty Adv to student profile
-            const student = await Students.findByIdAndUpdate({facultyAdvisorEmail: facultyEmail});
+            const student = await Students.findByIdAndUpdate(id,{facultyAdvisor: facultyAdv._id}, {new: true});
 
             //add student to faculty mentees arr
             await facultyAdv.updateOne({$push: {mentees: id}});
+
+            res.status(200).json(student);
+            
+        }catch(error){
+            console.log(error);
+            res.status(404).json(error);
+        }
+    }
+
+    async updateWarden(req,res) {
+        const {wardenEmail} = req.body;
+        const {id} = req.params;
+        try{
+            const warden = await Faculty.findOne({email: wardenEmail});
+            if(!warden) {return res.status(400).json("Warden Does Not Exist")}
+
+            // If Warden exist:
+            //add Warden to student profile
+            const student = await Students.findByIdAndUpdate(id,{warden: warden._id}, {new: true});
 
             res.status(200).json(student);
             
