@@ -8,6 +8,7 @@ import React from 'react';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from "./components/Navbar";
 
 
 function App() {
@@ -15,9 +16,10 @@ function App() {
     <>
     <ToastContainer position="top-center" autoClose="2500"/>
       <Router>
-        <Routes>
-        <Route exact path="/" element={<Home/>} />
+        <Navbar/>
 
+        <Routes>
+          <Route exact path="/" element={<Home/>} />
           <Route exact path="/user/signup" element={<Signup />} />
           <Route exact path="/user/login" element={<Login />} />
           <Route exact path="/user/outpass" element={<Outpass />} />
