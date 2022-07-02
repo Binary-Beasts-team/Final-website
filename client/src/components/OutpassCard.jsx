@@ -18,7 +18,7 @@ function OutpassCard() {
         <ul className="list-group list-group-flush">
             <li className="list-group-item"><span className='outpassTitle'>Applied On:</span>24-03-2022</li>
         </ul>
-        <Link to="" class="btn btn-primary" target="_blank">Download Outpass</Link>
+        <Link to="" class="btn btn-primary downloadBtn" target="_blank">Download Outpass</Link>
     </div>
     </>
   )
