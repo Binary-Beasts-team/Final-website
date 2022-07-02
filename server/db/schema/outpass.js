@@ -37,8 +37,9 @@ const outpassSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    approvedstatus:{
-        type: [Number],
+    currentstatus:{
+        type: String,
+        default: "Saved to draft"
     }
 }, {timestamps: true});
 const Outpasses = mongoose.model('Outpass',outpassSchema);
