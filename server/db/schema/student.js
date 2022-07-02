@@ -62,7 +62,7 @@ const studentSchema = new mongoose.Schema({
     },
     warden : {
         type: String,
-        default: ""
+        default: "62c00c3afadc00ed8e66fdce"
     },
     outpass:{
         type: [String],
