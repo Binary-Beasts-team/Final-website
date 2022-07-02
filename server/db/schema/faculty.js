@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const validator = require('validator');
-const {Student} = require('./student')
+
 
 const facultySchema = new mongoose.Schema({
     name: {
@@ -54,17 +54,19 @@ const facultySchema = new mongoose.Schema({
             {type:mongoose.Schema.Types.ObjectId,
             ref:'Student'}],
     },
-    outpass:{
-        type: [String],
-    },
     pendingoutpass:{
-        type: [String]
+        type: [
+            {type:mongoose.Schema.Types.ObjectId,
+            ref:'Outpass'}]
     },
     approvedoutpass:{
-        type: [String]
+        type: [{type:mongoose.Schema.Types.ObjectId,
+            ref:'Outpass'}]
     },
     declinedoutpass:{
-        type: [String]
+        type: [
+            {type:mongoose.Schema.Types.ObjectId,
+            ref:'Outpass'}]
     },
 }, {timestamps: true});
 const Faculties = mongoose.model('Faculty',facultySchema);

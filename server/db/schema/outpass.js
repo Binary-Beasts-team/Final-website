@@ -2,8 +2,6 @@
 
 const mongoose = require("mongoose");
 const validator = require('validator');
-const {Student} = require('./student')
-const {Faculty} = require('./faculty')
 
 const outpassSchema = new mongoose.Schema({
     studentId: {
