@@ -9,6 +9,7 @@
     color: rgb(70, 70, 70);
     padding: 1rem;
     background-color: white !important;
+    margin: 1rem;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
@@ -21,11 +22,20 @@
 
 .outpassTitle {
     color: black;
+    text-align: left;
     margin-right: 1rem;
 }
+.outpassTitletext{
+    /* text-align: right; */
+    margin-left:3.1rem;
+    padding-right: 1rem;
+    text-align: left;
+    
 
+}
 .card-text {
     margin-top: 0.5rem;
+    margin-right: 0.5rem !important;
 }
 
 .statusIcon {

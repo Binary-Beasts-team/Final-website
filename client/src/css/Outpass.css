@@ -9,6 +9,11 @@
   font-family: 'Josefin Sans', sans-serif;
 } */
 
+.info{
+  display:flex;
+  flex-direction: row;
+}
+
 .wrapper{
   display: flex;
   position: relative;
@@ -97,7 +102,22 @@
   margin-bottom: 20px;
 }
 
+.strike{
+  font-size: 1.5rem;
+  margin: 1.5rem;
+  text-align: left;
+  padding-left: 1rem;
+  font-weight: 600;
+  color:rgb(145, 145, 145);
+  font-family: inter;
+}
 
+.line{
+  border-bottom: 2px solid rgb(145, 145, 145);
+  width: fit-content;
+  padding-left: 0rem;
+  margin-left: 2rem;
+}
 
 @media (max-height: 500px){
   .social_media{
