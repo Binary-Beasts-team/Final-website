@@ -24,6 +24,9 @@ const studentSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    genderMale: {
+        type: Boolean
+    },
     password: {
         type: String,
         default:""
@@ -49,9 +52,17 @@ const studentSchema = new mongoose.Schema({
         type: String,
         expires: '300s'
     },
-    facultyadvisorid:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Faculty',
+    facultyAdvisorEmail:{
+        type: String,
+        default: ""
+    },
+    welfareCordinator : {
+        type: String,
+        default: "keshavjha018@gmail.com"
+    },
+    wardenMail : {
+        type: String,
+        default: ""
     },
     outpass:{
         type: [String],

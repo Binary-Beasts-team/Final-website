@@ -1,6 +1,7 @@
 // Controllers for Students class goes here
 
 const Students = require('../db/schema/student');
+const Faculty = require("../db/schema/faculty");
 const Utils = require('../services/util.services');
 const bcrypt = require("bcryptjs");
 const emailService = require('../services/email.services')
@@ -11,7 +12,7 @@ const handler = new Handler();
 class Student {
     async create(req, res) {
         try {
-            const {name,email,password} = req.body;
+            const {name,email,password, genderMale} = req.body;
             let pass = await bcrypt.hash(password, 10); // Hashing the Password
             // Check if the entered Email is present in Database
             if (await Utils.notUsedEmail(email)) {
@@ -21,6 +22,7 @@ class Student {
                     email: email,
                     password: pass,
                     regNo: Utils.getstudentregno(email),
+                    genderMale: genderMale,
                     token: await Utils.generateUniqueString()
                 });
                 const newStudent = await post.save();
@@ -34,10 +36,12 @@ class Student {
                 });
 
             } else {
+                // If student already has registered via google then update
                 const post = await Students.findOneAndUpdate({email},{
                     password: pass,
                     username: await Utils.generateUniqueUserName(name),
                     regNo: Utils.getstudentregno(email),
+                    genderMale: genderMale,
                     verified:true
                 });
                 res.status(200).json(post);
@@ -148,7 +152,27 @@ class Student {
         }
     }
     
-    
+    async updateFacultyAdv(req,res) {
+        const {facultyEmail} = req.body;
+        const {id} = req.params;
+        try{
+            const facultyAdv = await Faculty.findOne({email: facultyEmail});
+            if(!facultyAdv) {return res.status(400).json("Faculty Advisor Does Not Exist")}
+
+            // If faculty Advisor exist:
+            //add faculty Adv to student profile
+            const student = await Students.findByIdAndUpdate({facultyAdvisorEmail: facultyEmail});
+
+            //add student to faculty mentees arr
+            await facultyAdv.updateOne({$push: {mentees: id}});
+
+            res.status(200).json(student);
+            
+        }catch(error){
+            console.log(error);
+            res.status(404).json(error);
+        }
+    }
 }
 
 
