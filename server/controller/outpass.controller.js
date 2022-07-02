@@ -19,8 +19,7 @@ class Outpass {
             const student = await Students.findById(id);
             const days = Math.round(
                 Math.abs((date1 - date2) / (1000 * 60 * 60 * 24))
-            );
-            if (days > 10) {
+            )
                 const post = new Outpasses({
                     studentId: id,
                     facultyId: student.facultyAdvisor,
@@ -35,7 +34,6 @@ class Outpass {
                     $push: { outpass: newOutpass._id },
                 });
                 res.status(200).json(newOutpass);
-            }
         } catch (error) {
             res.status(404).json(error);
             console.log(error);
@@ -51,7 +49,6 @@ class Outpass {
                 .populate("studentId")
                 .populate("facultyId");
             // if fid is of Facultyadvisor
-            console.log(student.facultyId.pendingoutpass.includes(id))
             if (fid == student.facultyId._id && student.studentId.pendingoutpass.includes(id)) {
                 if (approved) {
                     const update = await student.updateOne({
@@ -71,13 +68,14 @@ class Outpass {
                         );
                         console.log("Approved by faculty advisor");
                     } else {
-                        const Approved = await student.updateOne(
+                        const Approved = await Students.updateOne(
                             { _id: student.studentId._id },
                             {
                                 $push: { approvedoutpass: id },
                                 $pull: { pendingoutpass: student.studentId._id },
                             }
-                        );
+                            );
+                        console.log("Approved by faculty advisor");
                     }
                 } else {
                     const update = await student.updateOne({
