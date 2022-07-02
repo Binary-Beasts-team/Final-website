@@ -77,7 +77,6 @@ function Login() {
                         <hr className="hr"/>
                         <div className="loginOptions">
                             <button className="googleBtn" onClick={handleGoogleOnClick}>  Google</button>
-                            <button className="fbBtn"> Facebook</button>
                         </div>
                         <Link to="/" className="loginForgot">Forgot Password ?</Link>
                         <hr className="hr"/>
