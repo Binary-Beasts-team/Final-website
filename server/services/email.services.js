@@ -42,7 +42,7 @@ class Email {
     mailVerification = async (userId,mail,name,token,callback) => {
         let subject = "Email Vericication"
         try {
-            let bodyContent = apiHostUrl +  `verify/mail/${userId}/${token}`
+            let bodyContent = apiHostUrl +  `verify/mail?userId=${userId}&token=${token}`
             mailOptions.subject = subject
             mailOptions.to = mail
             mailOptions.html = bodyContent

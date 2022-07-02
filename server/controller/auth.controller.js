@@ -9,17 +9,16 @@ const EmailService = require('../services/email.services');
 class Auth {
     async emailVerification(req,res) {
         const { userId, token } = req.params;
-        console.log("student");
         try {
-          const student = await Students.findById(userId);
-          if (student.token === token) {
+            const student = await Students.findOne({_id:userId});
+            if (student.token === token) {
             let post = await student.updateOne({ verified: true });
             res.status(200).json(post);
-          } else {
+            } else {
             res.status(400).json("Invalid Link !!!");
-          }
+            }
         } catch (e) {
-          return res.status(500).json(e);
+            return res.status(500).json(e);
         }
     }
 

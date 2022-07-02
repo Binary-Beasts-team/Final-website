@@ -1,6 +1,6 @@
 import "../css/signup.css";
 import { useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { FcGoogle } from 'react-icons/fc'
@@ -94,7 +94,7 @@ function Signup() {
 
                             <hr className="hr" />
                             <span className="newText">Already have an account?</span>
-                            <button className="logInBtn" onClick={handleLogin}>Log In</button>
+                            <Link className="logInBtn" to="/user/login">Log In</Link>
                         </form>
                     </div>
                 </div>
