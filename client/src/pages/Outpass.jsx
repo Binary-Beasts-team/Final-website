@@ -1,21 +1,18 @@
 import React from 'react'
 import './../css/Outpass.css'
-import { Link } from "react-router-dom";
 import VerticalNavbar from '../components/verticalNavbar';
-import Navbar from './../components/Navbar';  
 import ProgressBar from '../components/progressBar';
+import OutpassCard from '../components/OutpassCard';
 
 const Outpass = () => {
     return (
         <>
             <section>
-                <Navbar />
                 <div className="wrapper">
                     <VerticalNavbar />
                     <div className="main_content">
-                        <ProgressBar />
                         <div className="info">
-                            
+                            <OutpassCard />
                         </div>
                     </div>
                 </div>
