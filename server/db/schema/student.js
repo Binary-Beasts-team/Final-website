@@ -66,7 +66,16 @@ const studentSchema = new mongoose.Schema({
     },
     outpass:{
         type: [String],
-    }
+    },
+    pendingoutpass:{
+        type:[String]
+    },
+    approvedoutpass:{
+        type:[String]
+    },
+    declinedoutpass:{
+        type:[String]
+    },
 }, {timestamps: true});
 const Students = mongoose.model('Student',studentSchema);
 module.exports = Students;

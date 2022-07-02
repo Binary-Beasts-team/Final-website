@@ -53,7 +53,16 @@ const facultySchema = new mongoose.Schema({
     },
     outpass:{
         type: [String],
-    }
+    },
+    pendingoutpass:{
+        type: [String]
+    },
+    approvedoutpass:{
+        type: [String]
+    },
+    declinedoutpass:{
+        type: [String]
+    },
 }, {timestamps: true});
 const Faculties = mongoose.model('Faculty',facultySchema);
 module.exports = Faculties;
