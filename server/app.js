@@ -1,14 +1,14 @@
 var express = require("express");
+var app = express();
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var session = require("express-session");
 var cors = require("cors");
 
+app.use(cors());
 var indexRouter = require("./routes/index");
 
-var app = express();
-app.use(cors());
 app.use(
     session({
         name: "vidkarya",

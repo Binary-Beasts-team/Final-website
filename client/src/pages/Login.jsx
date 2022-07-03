@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
-
+import {FcGoogle} from 'react-icons/fc'
 
 
 function Login() {
@@ -14,9 +14,12 @@ function Login() {
     const [userLoginInfo, setuserLoginInfo] = useState({
         email: "",
         password: "",
-        faculty:false
+        
     });
     const [user,setUser] = useState({})
+    const [checkValue,setcheckValue] = useState("student");
+
+
 
     const Checkbox = ({ label, value, onChange }) => {
         return (
@@ -79,7 +82,7 @@ function Login() {
         }
         try {
             const res = await axios.post(
-                "/api/auth/student/login",{
+                `/api/auth/${checkValue}/login`,{
                     user:email,
                     password
                 });
@@ -98,6 +101,16 @@ function Login() {
         }
     };
 
+    const handleCheckbox = (e)=>{
+
+        if(e.target.checked){
+            setcheckValue("student");
+        }else{
+            setcheckValue("faculty")
+        }
+    }
+    console.log(checkValue);
+
     return (
         <div className="login">
             <div className="loginWrapper">
@@ -107,23 +120,31 @@ function Login() {
                 </div>
                 <div className="loginRight">
                     <form className="loginBox" onSubmit={handleSubmit}>
-                        <input placeholder="Email" type="email" required className="loginInput" ref={email} name="email" value={userLoginInfo.email} onChange={handleLoginChange}/>
+                        <input placeholder="Email" type="email" required className="loginInput " ref={email} name="email" value={userLoginInfo.email} onChange={handleLoginChange}/>
                         <input placeholder="Password" type="password" required className="loginInput" ref={password} name="password" value={userLoginInfo.password} onChange={handleLoginChange}/>
                         {/* <Checkbox
                             label="Faculty"
                             value={checked}
                             onChange={handleChange}
                         /> */}
-                        <button className="loginBtn" onClick={postLoginData}>Login In</button>
+                        <button className="loginBtn mt-1" onClick={postLoginData}>Login In</button>
                         <hr className="hr"/>
-                        <div className="loginOptions">
-                            <button className="googleBtn" onClick={handleGoogleOnClick}>  Google</button>
+
+                        <div className="check-box my-3 ">
+                            <label htmlFor="checkbox" className="mx-3">Are you a student?</label>
+                             <input type="checkbox"  name="checkbox" id="checkbox" onChange={handleCheckbox} />
+                        </div>
+
+                        <div className="flex my-1 p-1 gap-4 border items-center cursor-pointer" onClick={handleGoogleOnClick}>
+                            <FcGoogle size={30} />
+                            <p className="text-left">login up with google</p>
                         </div>
                         <button onClick={handleForgotPassword} className="loginForgot">Forgot Password ?</button>
                         <hr className="hr"/>
                         <span className="newText">New to Zomato?
                             <Link className="signUpBtn" to="/user/signup">Create Account</Link>
                         </span>
+
                     </form>
                 </div>
             </div>
