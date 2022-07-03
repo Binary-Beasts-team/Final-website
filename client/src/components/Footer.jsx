@@ -13,7 +13,11 @@ function Footer() {
           <a href="#" target="_blank" rel="noreferrer noopener"><BsTwitter className='IconItem'/></a>
         </div>
         <div class="ele-row">
-          Copyright © 2022 - All rights reserved || Designed and Developed By: Binary Beasts 
+          Outpass Management System ||
+          Designed and Developed By: Binary Beasts
+          
+          <br />
+          Copyright © 2022 - All rights reserved
         </div>
       </footer>
     </>
