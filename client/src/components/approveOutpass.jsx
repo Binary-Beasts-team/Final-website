@@ -34,6 +34,18 @@ function ApproveOutpass(data) {
             <Link to="" class="btn btn-success approvalBtn" target="_blank">Approve</Link>
             <Link to="" class="btn btn-danger rejectBtn" target="_blank">Decline</Link>
           </div>
+          <ul className="list-group list-group-flush">
+              <li className="list-group-item listGrpItem"><span className='outpassTitle'>Applied On:</span>24-03-2022</li>
+              <li className="list-group-item listGrpItem"><span className='outpassTitle'>Date of Leaving:</span>26-03-2022</li>
+              <li className="list-group-item listGrpItem"><span className='outpassTitle'>Date of Returning:</span>04-04-2022</li>
+              <li className="list-group-item listGrpItem"><span className='outpassTitle'>Reason:</span>Summer Break</li>
+              <li className="list-group-item listGrpItem"><span className='outpassTitle'>Destination:</span>Patna</li>
+          </ul>
+            <div className="choiceButtons">
+              <Link to="" class="btn btn-success approvalBtn" target="_blank">Approve</Link>
+              <Link to="" class="btn btn-danger rejectBtn" target="_blank">Decline</Link>
+            </div>
+      </div>
     </div>
     </>
   )
