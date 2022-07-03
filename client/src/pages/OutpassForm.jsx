@@ -121,7 +121,7 @@ function OutpassForm() {
             </div>
             <div >
             <div className='btnContainer'>
-                <button type="submit" className="btn btn-primary submitBtn" onClick={SaveOutpass}>Save</button>
+                <button type="submit" className="btn btn-primary submitBtn" onClick={SaveOutpass}>Apply</button>
             </div>
             <div className='btnContainer'>
                 <button type="submit" className="btn btn-primary cancelBtn" onClick={CancelOutpass}>Cancel</button>
