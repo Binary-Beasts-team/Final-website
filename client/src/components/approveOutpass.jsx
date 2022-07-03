@@ -7,7 +7,7 @@ function ApproveOutpass(data) {
   console.log(data);
   return (
     <>
-    <div className="ApproveOutpassCard">
+    <div className="card ApproveOutpassCard">
         {/* <img src="..." className="card-img-top" alt="..."/> */}
         <div className="card-body">
             <h5 className="card-title ApproveOutpassCardTitle">O U T P A S S</h5>
