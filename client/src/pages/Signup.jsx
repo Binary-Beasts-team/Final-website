@@ -93,30 +93,31 @@ function Signup() {
             <div className="signup">
                 <div className="signupWrapper">
                     <div className="signupLeft">
-                        <h1 className="signupLogo">Zomato</h1>
-                        <span className="signupDesc">Sign Up to Zomato and Order Your Favourite Food!</span>
+                        <h1 className="signupLogo">Digit io</h1>
+                        <span className="signupDesc">
+                            Welcome to IIIT Dharwad's Digital Portal for Outpass Application and Authentication.</span>
                     </div>
                     <div className="signupRight">
                         <form className="signupBox flex-col gap-2" onSubmit={handleSubmit}>
-                        <input type="text" required placeholder="name" className="signupInput"  name="name" value={userSignupInfo.name} onChange={handleSignupChange} />
-
+                            <input type="text" required placeholder="Name" className="signupInput"  name="name" value={userSignupInfo.name} onChange={handleSignupChange} />
                             <input type="email" required placeholder="Email" className="signupInput" ref={email} name="email" value={userSignupInfo.email} onChange={handleSignupChange} />
                             <input type="password" required placeholder="Password" className="signupInput" ref={password} name="password" value={userSignupInfo.password} onChange={handleSignupChange} />
                             <input type="password" required placeholder="Re-Enter Password" className="signupInput" ref={rePassword} name="confirmPassword" value={userSignupInfo.confirmPassword} onChange={handleSignupChange} />
-                            <button className="signupBtn" onClick={postSignupData}>Sign Up</button>
-                            <div className="flex my-1 p-1 gap-4 border items-center cursor-pointer" onClick={handleGoogleOnClick}>
-                                <FcGoogle size={30} />
-                                <p className="text-left">sign  up with google</p>
-                            </div>
                             <div>
                                 <label htmlFor="checkbox" className="mx-3">Are you a student?</label>
                                 <input type="checkbox" name="checkbox" id="checkbox" onChange={handleCheckbox} />
                             </div>
+                            <button className="signupBtn" onClick={postSignupData}>Sign Up</button>
+
+                            <div className="flex my-1 p-1 gap-4 border items-center cursor-pointer googleSignIn" onClick={handleGoogleOnClick}>
+                                <FcGoogle size={30} />
+                                <p className="text-left">sign  up with google</p>
+                            </div>
 
                             <hr className="hr" />
-                            <Link to="/user/login">
-                                <span className="newText text-blue-600 ml-3 p-1">Already have an account? Log in</span>
-                            </Link>
+                            <span className="newText">Already have an Account?
+                                <Link className="logInBtn" to="/user/login">Login</Link>
+                            </span>
 
                         </form>
                     </div>
