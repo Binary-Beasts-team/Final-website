@@ -48,9 +48,13 @@ const Outpass = () => {
                         <div class="strike font-serief line">
                             <span>Create New</span>
                         </div>
-                        <div className="info">
-                            <OutpassCard />
-                            <OutpassCard />
+                        <div className=" grid grid-cols-3">
+                        {outPass.outpass &&
+                                outPass.outpass.map((pass, idx) => {
+                                    return (
+                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} id={pass._id} />
+                                    )
+                                })}
                         </div>
                         <div class="strike font-serief line">
                             <span>Pending Requests</span>
@@ -58,30 +62,32 @@ const Outpass = () => {
                         <div className=" grid grid-cols-3">
                             {outPass.pendingoutpass &&
                                 outPass.pendingoutpass.map((pass, idx) => {
-
                                     return (
-                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} />
+                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} id={pass._id}/>
                                     )
                                 })}
                         </div>
                         <div class="strike font-serief line">
                             <span>Approved </span>
                         </div>
+                        <div className=" grid grid-cols-3">
                         {outPass.approvedoutpass &&
                             outPass.approvedoutpass.map((pass, idx) => {
                                 return (
-                                    <OutpassCard name={outPass.name} regNo={outPass.regNo} />
+                                    <OutpassCard name={outPass.name} regNo={outPass.regNo} id={pass._id}/>
                                     
                                 )
                             })}
+                        </div>
+                        
                         <div class="strike font-serief line">
                             <span>Declined </span>
                         </div>
-                        <div className="info">
+                        <div className=" grid grid-cols-3">
                             {outPass.declinedoutpass &&
                                 outPass.declinedoutpass.map((pass, idx) => {
                                     return (
-                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} />
+                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} id={pass._id}/>
                                         
 
                                     )
