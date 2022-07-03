@@ -9,21 +9,25 @@ import axios from "axios";
 
 function Profile() {
 
+    const [state, setState] = useState("student");
     const [student, setStudent] = useState({});
     const [facultyAdv, setFacultyAdv] = useState("NOT SET");
     const userData = JSON.parse(localStorage.getItem("userInfo"));
     let id = userData._id
     //fetch details from backend
+    if(userData.faculty == true){
+        setState("faculty")
+    }
     useEffect(() => {
         async function fetchData() {
 
             //Fetch Student
-            var stud = await axios.get(`api/student/${id}`);
+            var stud = await axios.get(`/api/${state}/${id}`);
             setStudent(stud.data);
 
-            //Fetch faculty Advisor of the student
-            var facAdv = await axios.get(`api/faculty/${stud.data.facultyAdvisor}`);
-            setFacultyAdv(facAdv.data.name);
+            // //Fetch faculty Advisor of the student
+            // var facAdv = await axios.get(`api/faculty/${stud.data.facultyAdvisor}`);
+            // setFacultyAdv(facAdv.data.name);
         };
         fetchData();
     }, [id])
