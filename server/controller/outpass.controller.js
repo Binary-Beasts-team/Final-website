@@ -21,7 +21,7 @@ class Outpass {
                 Math.abs((date1 - date2) / (1000 * 60 * 60 * 24))
             );
             const post = new Outpasses({
-                studentId: id,
+                studentId: student,
                 facultyId: student.facultyAdvisor,
                 DOL: dol,
                 DOR: dor,
@@ -302,10 +302,9 @@ class Outpass {
         const { id } = req.params;
         try {
             const outpass = await Students.findById(id)
-                .populate("outpass")
-                .populate("pendingoutpass")
-                .populate("approvedoutpass")
-                .populate("declinedoutpass");
+                .populate("outpass pendingoutpass approvedoutpass declinedoutpass pendingoutpass.studentId outpass.facultyId");
+       
+                
             res.status(200).json(outpass);
         } catch (error) {
             res.status(500).json(error);
