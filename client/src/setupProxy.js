@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/auth/google',
     createProxyMiddleware({
-      target: 'http://localhost:3001'
+      target: 'https://server-bice-nine.vercel.app/'
     })
   );
 };
