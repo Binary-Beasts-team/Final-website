@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "./components/Navbar";
 import OutpassForm from "./pages/OutpassForm";
+import Footer from "./components/Footer"
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
           <Route exact path="/verify/resetpassword" element={<Resetpassword />} />
           <Route exact path="/apply" element={<OutpassForm />} />
         </Routes>
+
+        <Footer />
       </Router>
     </>
   );
