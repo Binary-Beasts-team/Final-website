@@ -10,8 +10,8 @@ function Profile() {
 
     const [student, setStudent] = useState({});
     const [facultyAdv, setFacultyAdv] = useState("NOT SET");
-    const id = useParams().id;
-
+    const userData = JSON.parse(localStorage.getItem("userInfo"));
+    let id = userData._id
     //fetch details from backend
     useEffect(()=>{
         async function fetchData(){
