@@ -12,12 +12,12 @@ const Outpass = () => {
 
     useEffect(() => {
         const GetOutpasses = async () => {
-            
+
             const userData = JSON.parse(localStorage.getItem("userInfo"));
             try {
                 if (userData) {
                     const id = userData._id;
-                   const res = await axios.put(
+                    const res = await axios.put(
                         `/api/outpass/${id}/student`
                     );
                     if (res) {
@@ -55,33 +55,37 @@ const Outpass = () => {
                         <div class="strike font-serief line">
                             <span>Pending Requests</span>
                         </div>
-                        <div className="info">
-                            {outPass.pendingoutpass && 
-                            outPass.pendingoutpass.map((pass  ,idx)=>{
-                                return (
-                                    <OutpassCard />
-                                )
-                            })}
+                        <div className=" grid grid-cols-3">
+                            {outPass.pendingoutpass &&
+                                outPass.pendingoutpass.map((pass, idx) => {
+
+                                    return (
+                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} />
+                                    )
+                                })}
                         </div>
                         <div class="strike font-serief line">
                             <span>Approved </span>
                         </div>
-                        {outPass.approvedoutpass && 
-                            outPass.approvedoutpass.map((pass  ,idx)=>{
+                        {outPass.approvedoutpass &&
+                            outPass.approvedoutpass.map((pass, idx) => {
                                 return (
-                                    <OutpassCard />
+                                    <OutpassCard name={outPass.name} regNo={outPass.regNo} />
+                                    
                                 )
                             })}
                         <div class="strike font-serief line">
                             <span>Declined </span>
                         </div>
                         <div className="info">
-                        {outPass.declinedoutpass && 
-                            outPass.declinedoutpass.map((pass  ,idx)=>{
-                                return (
-                                    <OutpassCard />
-                                )
-                            })}
+                            {outPass.declinedoutpass &&
+                                outPass.declinedoutpass.map((pass, idx) => {
+                                    return (
+                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} />
+                                        
+
+                                    )
+                                })}
                         </div>
                     </div>
                 </div>

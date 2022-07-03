@@ -78,15 +78,15 @@ function Login() {
                 });
             var data = {email:res.data.email, _id:res.data._id, img: res.data.dpLink, name:res.data.name,regNo: res.data.regNo}
             if (res) {
+                toast.dismiss(Loadtoast);
             localStorage.setItem("userInfo", JSON.stringify(data));
             console.log(res);
             navigate("/");
             }
-
-            toast.dismiss(Loadtoast);
+            
         } catch (error) {
+            
             toast.dismiss(Loadtoast);
-
             toast.error("something went wrong cheack your internet connection!!")
             console.log("wrong credentials error in verfication try again !!!! ");
         }
