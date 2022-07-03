@@ -8,7 +8,7 @@ import axios from "axios";
 
 const Outpass = () => {
 
-    const [outPass, setoutPass] = useState([]);
+    const [outPass, setoutPass] = useState({});
 
     useEffect(() => {
         const GetOutpasses = async () => {
@@ -56,8 +56,8 @@ const Outpass = () => {
                             <span>Pending Requests</span>
                         </div>
                         <div className="info">
-                            {Outpass.pendingoutpass && 
-                            Outpass.pendingoutpass.map((pass  ,idx)=>{
+                            {outPass.pendingoutpass && 
+                            outPass.pendingoutpass.map((pass  ,idx)=>{
                                 return (
                                     <OutpassCard />
                                 )
@@ -66,8 +66,8 @@ const Outpass = () => {
                         <div class="strike font-serief line">
                             <span>Approved </span>
                         </div>
-                        {Outpass.approvedoutpass && 
-                            Outpass.approvedoutpass.map((pass  ,idx)=>{
+                        {outPass.approvedoutpass && 
+                            outPass.approvedoutpass.map((pass  ,idx)=>{
                                 return (
                                     <OutpassCard />
                                 )
@@ -76,8 +76,8 @@ const Outpass = () => {
                             <span>Declined </span>
                         </div>
                         <div className="info">
-                        {Outpass.declinedoutpass && 
-                            Outpass.declinedoutpass.map((pass  ,idx)=>{
+                        {outPass.declinedoutpass && 
+                            outPass.declinedoutpass.map((pass  ,idx)=>{
                                 return (
                                     <OutpassCard />
                                 )

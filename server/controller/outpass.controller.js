@@ -306,8 +306,7 @@ class Outpass {
                 .populate("pendingoutpass")
                 .populate("approvedoutpass")
                 .populate("declinedoutpass");
-            let result = [outpass];
-            res.status(200).json(result);
+            res.status(200).json(outpass);
         } catch (error) {
             res.status(500).json(error);
             console.log(error);
