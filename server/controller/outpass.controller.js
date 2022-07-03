@@ -45,8 +45,8 @@ class Outpass {
         const { fid, approved } = req.body;
         try {
             const outpass = await Outpasses.findById(id)
-            .populate("studentId")
-            .populate("facultyId");
+                .populate("studentId")
+                .populate("facultyId");
             // if fid is of Facultyadvisor
             if (fid == outpass.facultyId._id) {
                 //If Approved by Faculty Advisor
@@ -79,7 +79,7 @@ class Outpass {
                         res.status(201).json("Approved by Faculty Advisor");
                         console.log("Approved by Faculty Advisor");
                     }
-                    
+
                     //Else if outpass for <= 10 days => no need for furthur approvals
                     // => Mark & Move to APPROVED in Student's Dashboard
                     else {
@@ -89,7 +89,7 @@ class Outpass {
                                 $push: { approvedoutpass: id },
                                 $pull: { pendingoutpass: outpass.studentId._id },
                             }
-                            );
+                        );
                         res.status(201).json("Approved by Faculty Advisor");
                         console.log("Approved by Faculty Advisor");
                     }
@@ -280,8 +280,12 @@ class Outpass {
                 .populate("pendingoutpass")
                 .populate("approvedoutpass")
                 .populate("declinedoutpass");
-            
-            let result = [outpass.pendingoutpass,outpass.approvedoutpass,outpass.declinedoutpass]
+
+            let result = [
+                outpass.pendingoutpass,
+                outpass.approvedoutpass,
+                outpass.declinedoutpass,
+            ];
             res.status(200).json(result);
         } catch (error) {
             res.status(500).json(error);
@@ -297,7 +301,7 @@ class Outpass {
                 .populate("pendingoutpass")
                 .populate("approvedoutpass")
                 .populate("declinedoutpass");
-            let result = [outpass.outpass,outpass.pendingoutpass,outpass.approvedoutpass,outpass.declinedoutpass]
+            let result = [outpass];
             res.status(200).json(result);
         } catch (error) {
             res.status(500).json(error);

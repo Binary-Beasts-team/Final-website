@@ -24,7 +24,6 @@ class Auth {
 
     async StudentLogin(req,res) {
         const {user,password} = req.body;
-        console.log(req.body);
         try {
             const Student = await Students.findOne({$or : [{email: user}, {username: user}]});
             const isMatch = bcrypt.compare(password, Student.password);
