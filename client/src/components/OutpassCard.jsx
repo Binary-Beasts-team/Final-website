@@ -1,11 +1,15 @@
 import React from 'react';
 import "./OutpassCard.css";
-import {MdPendingActions} from "react-icons/md";
 import {Link} from "react-router-dom";
+import ApproveOutpass from './approveOutpass';
+import { useState, useEffect } from 'react';
 
-function OutpassCard({name ,regNo, id}) {
-
-  console.log(name);
+function OutpassCard({name ,regNo, id, status,dol,dor,reason,destination}) {
+  const [display, setdisplay] = useState(false);
+  const handleOnCilck = () =>{
+    
+  }
+  // console.log(data);
   return (
     <>
     <div className="card">
@@ -17,11 +21,9 @@ function OutpassCard({name ,regNo, id}) {
             <p className="card-text"><span className='outpassTitle'>Name:</span><span className='outpassTitletext'>{name&&name}</span></p>
             <p className="card-text"><span className='outpassTitle'>Reg No:</span><span className='outpassTitletext'>{regNo&&regNo}</span></p>
         </div>
-        <ul className="list-group list-group-flush">
-            <li className="list-group-item"><span className='outpassTitle'>Applied On:</span>24-03-2022</li>
-        </ul>
-        <Link to="" class="btn btn-primary downloadBtn" target="_blank">Download Outpass</Link>
-    </div>
+
+        <button class="btn btn-primary downloadBtn" onClick={handleOnCilck}>Open Outpass</button>
+     </div>
     </>
   )
 }

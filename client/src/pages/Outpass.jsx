@@ -1,28 +1,23 @@
-import React from 'react'
-import './../css/Outpass.css'
-import VerticalNavbar from '../components/verticalNavbar';
-import OutpassCard from '../components/OutpassCard';
-import { useState, useEffect } from 'react';
+import React from "react";
+import "./../css/Outpass.css";
+import VerticalNavbar from "../components/verticalNavbar";
+import OutpassCard from "../components/OutpassCard";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Outpass = () => {
-
     const [outPass, setoutPass] = useState({});
 
     useEffect(() => {
         const GetOutpasses = async () => {
-
             const userData = JSON.parse(localStorage.getItem("userInfo"));
             try {
                 if (userData) {
                     const id = userData._id;
-                    const res = await axios.put(
-                        `/api/outpass/${id}/student`
-                    );
+                    const res = await axios.put(`/api/outpass/${id}/student`);
                     if (res) {
                         setoutPass(res.data);
-                        console.log(res.data);
-
+                        // console.log(res.data);
                     } else {
                         console.log(res.data);
                     }
@@ -48,11 +43,20 @@ const Outpass = () => {
                             <span>Create New</span>
                         </div>
                         <div className=" grid grid-cols-3">
-                        {outPass.outpass &&
+                            {outPass.outpass &&
                                 outPass.outpass.map((pass, idx) => {
                                     return (
-                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} id={pass._id} />
-                                    )
+                                        <OutpassCard
+                                            name={outPass.name}
+                                            regNo={outPass.regNo}
+                                            id={pass._id}
+                                            status={pass.currentstatus}
+                                            dol={pass.DOL}
+                                            dor={pass.DOR}
+                                            reason={pass.reason}
+                                            destination={pass.destination}
+                                        />
+                                    );
                                 })}
                         </div>
                         <div class="strike font-serief line">
@@ -62,23 +66,30 @@ const Outpass = () => {
                             {outPass.pendingoutpass &&
                                 outPass.pendingoutpass.map((pass, idx) => {
                                     return (
-                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} id={pass._id}/>
-                                    )
+                                        <OutpassCard
+                                            name={outPass.name}
+                                            regNo={outPass.regNo}
+                                            id={pass._id}
+                                        />
+                                    );
                                 })}
                         </div>
                         <div class="strike font-serief line">
                             <span>Approved </span>
                         </div>
                         <div className=" grid grid-cols-3">
-                        {outPass.approvedoutpass &&
-                            outPass.approvedoutpass.map((pass, idx) => {
-                                return (
-                                    <OutpassCard name={outPass.name} regNo={outPass.regNo} id={pass._id}/>
-                                    
-                                )
-                            })}
+                            {outPass.approvedoutpass &&
+                                outPass.approvedoutpass.map((pass, idx) => {
+                                    return (
+                                        <OutpassCard
+                                            name={outPass.name}
+                                            regNo={outPass.regNo}
+                                            id={pass._id}
+                                        />
+                                    );
+                                })}
                         </div>
-                        
+
                         <div class="strike font-serief line">
                             <span>Declined </span>
                         </div>
@@ -86,17 +97,19 @@ const Outpass = () => {
                             {outPass.declinedoutpass &&
                                 outPass.declinedoutpass.map((pass, idx) => {
                                     return (
-                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} id={pass._id}/>
-                                        
-
-                                    )
+                                        <OutpassCard
+                                            name={outPass.name}
+                                            regNo={outPass.regNo}
+                                            id={pass._id}
+                                        />
+                                    );
                                 })}
                         </div>
                     </div>
                 </div>
             </section>
         </>
-    )
-}
+    );
+};
 
-export default Outpass; 
+export default Outpass;
