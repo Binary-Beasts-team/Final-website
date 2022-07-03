@@ -84,23 +84,81 @@ class Email {
         }
     };
 
-    outpassSent = async (data) => {
+    outpassSent = async (data ,facultyDetails) => {
         let subject = "Outpass Request";
 
         try {
-            let bodyContent = `Respect Faculty Advisor <br> <br> I am ${data.studentId.name} require your permission for outpass <br><br> 
+            let bodyContent = `Respected Faculty Advisor <br> <br> I am ${data.studentId.name} require your permission for outpass <br><br> 
                 Outpass Details:<br><br>
                 Name: ${data.studentId.name} <br>
-                Reg No:${data.studentId.regno} <br>
+                Reg No:${data.studentId.regNo} <br>
                 OutpassId: ${data._id} <br>
                 Date Of Leaving: ${data.DOL} <br>
-                Date Of Return: ${data.DOR} <br>
+                Days : ${data.days} <br>
                 Reason: ${data.reason} <br>
                 Destination: ${data.destination} <br><br>
                 More Information: ${apiHostUrl}user/outpass<br><br>
             This mail is auto generated. Do not Reply`;
             mailOptions.subject = subject;
-            mailOptions.to = data.facultyId.email;
+            mailOptions.to = facultyDetails.email;
+            mailOptions.html = bodyContent;
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log("Email sent: " + info.response);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    outpassSentToWarden = async (data, facultyDetails) => {
+        let subject = "Outpass Request";
+        try {
+            let bodyContent = `Respected Warden <br> <br> I am ${data.studentId.name} require your permission for outpass <br><br> 
+                Outpass Details:<br><br>
+                Name: ${data.studentId.name} <br>
+                Reg No:${data.studentId.regNo} <br>
+                OutpassId: ${data._id} <br>
+                Date Of Leaving: ${data.DOL} <br>
+                Days : ${data.days} <br>
+                Reason: ${data.reason} <br>
+                Destination: ${data.destination} <br><br>
+                More Information: ${apiHostUrl}user/outpass<br><br>
+            This mail is auto generated. Do not Reply`;
+            mailOptions.subject = subject;
+            mailOptions.to = facultyDetails.email;
+            mailOptions.html = bodyContent;
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log("Email sent: " + info.response);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    outpassSentToCoordinator = async (data,facultyDetails) => {
+        let subject = "Outpass Request";
+        try {
+            let bodyContent = `Respected Walefare Cordinator <br> <br> I am ${data.studentId.name} require your permission for outpass <br><br> 
+                Outpass Details:<br><br>
+                Name: ${data.studentId.name} <br>
+                Reg No:${data.studentId.regNo} <br>
+                OutpassId: ${data._id} <br>
+                Date Of Leaving: ${data.DOL} <br>
+                Days : ${data.days} <br>
+                Reason: ${data.reason} <br>
+                Destination: ${data.destination} <br><br>
+                More Information: ${apiHostUrl}user/outpass<br><br>
+            This mail is auto generated. Do not Reply`;
+            mailOptions.subject = subject;
+            mailOptions.to = facultyDetails.email;
             mailOptions.html = bodyContent;
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
@@ -116,16 +174,116 @@ class Email {
 
     outpassSentConfirm = async (data) => {
         let subject = "Outpass Request Details";
+        let message = ""
+        if(data.days > 10){
+            message = "Your Outpass request is more than 10 days<br> So, it can take 2-3 days to confirm.<br>"
+        }
         try {
             let bodyContent = `Your Request for Outpass is sent to your Faculty advisor <br> <br> 
                 Your Details:<br><br>
                 Name: ${data.studentId.name} <br>
                 OutpassId: ${data._id} <br>
                 Date Of Leaving: ${data.DOL} <br>
-                Date Of Return: ${data.DOR} <br>
                 Reason: ${data.reason} <br>
-                Destination: ${data.destination} <br><br>
+                Days : ${data.days} <br>
+                Status: Outpass Last approved by Mentor and sent to walefare cordinator <br>
+                Destination: ${data.destination} <br>
                 Check Status Here : ${apiHostUrl}user/outpass<br><br>
+                ${message}
+            This mail is auto generated. Do not Reply`;
+
+            mailOptions.subject = subject;
+            mailOptions.to = data.studentId.email;
+            mailOptions.html = bodyContent;
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log("Email sent: " + info.response);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    advisorApproved = async (data) => {
+        let subject = "Outpass Progress";
+        try {
+            let bodyContent = `Hey ${data.studentId.name}, Your request of Outpass is approved by your Mentor and is sent to Walefare cordinator <br> <br> 
+                Your Details:<br><br>
+                Destination: ${data.destination} <br>
+                Status: ${data.currentstatus} <br>
+                Check Status Here : ${apiHostUrl}user/outpass<br><br>
+            This mail is auto generated. Do not Reply`;
+
+            mailOptions.subject = subject;
+            mailOptions.to = data.studentId.email;
+            mailOptions.html = bodyContent;
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log("Email sent: " + info.response);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    cordinatorApproved = async (data) => {
+        let subject = "Outpass Progress";
+        try {
+            let bodyContent = `Hey ${data.studentId.name}, Your request of Outpass is approved by walefare cordinator and is sent to Hostel warden <br> <br> 
+                Your Details:<br><br>
+                Destination: ${data.destination} <br>
+                Status: Outpass Last approved by walefare cordinator and sent to warden <br>
+                Check Status Here : ${apiHostUrl}user/outpass<br><br>
+            This mail is auto generated. Do not Reply`;
+
+            mailOptions.subject = subject;
+            mailOptions.to = data.studentId.email;
+            mailOptions.html = bodyContent;
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log("Email sent: " + info.response);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    FinalApproved = async (data) => {
+        let subject = "Outpass Approved";
+        try {
+            let bodyContent = `Hey ${data.studentId.name} your request of Outpass for ${data.reason} is approved Successfully <br> <br> 
+                Download Pfd from Here : ${apiHostUrl}user/outpass<br><br>
+            This mail is auto generated. Do not Reply`;
+
+            mailOptions.subject = subject;
+            mailOptions.to = data.studentId.email;
+            mailOptions.html = bodyContent;
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log("Email sent: " + info.response);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    declinedApproved = async (data) => {
+        let subject = "Outpass Declined";
+        try {
+            let bodyContent = `Hey ${data.studentId.name} your request of Outpass for ${data.reason} is Declined by ${data.facultyId.name} <br> <br> 
+                Please contact him for further instruction<br><br>
             This mail is auto generated. Do not Reply`;
 
             mailOptions.subject = subject;

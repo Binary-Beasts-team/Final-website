@@ -43,6 +43,7 @@ class Outpass {
     async updateStatus(req, res) {
         const { id } = req.params;
         const { fid, approved } = req.body;
+        let Mail = new emailService();
         try {
             const outpass = await Outpasses.findById(id)
                 .populate("studentId")
@@ -76,6 +77,9 @@ class Outpass {
                             { _id: outpass.studentId.welfareCordinator },
                             { $push: { pendingoutpass: id } }
                         );
+                        const details = await Faculties.findById(outpass.studentId.welfareCordinator)
+                        Mail.advisorApproved(outpass)
+                        Mail.outpassSentToCoordinator(outpass,details)
                         res.status(201).json("Approved by Faculty Advisor");
                         console.log("Approved by Faculty Advisor");
                     }
@@ -90,6 +94,7 @@ class Outpass {
                                 $pull: { pendingoutpass: outpass.studentId._id },
                             }
                         );
+                        Mail.FinalApproved(outpass)
                         res.status(201).json("Approved by Faculty Advisor");
                         console.log("Approved by Faculty Advisor");
                     }
@@ -108,15 +113,14 @@ class Outpass {
                             $pull: { pendingoutpass: id },
                         }
                     );
+                    Mail.declinedApproved(outpass)
                     res.status(201).json("Request declined by Faculty Advisor");
                 }
             }
 
             // if fid is of welfare Cordinator
-            else if (
-                fid == outpass.studentId.welfareCordinator &&
-                outpass.facultyId.pendingoutpass.includes(id)
-            ) {
+            else if (fid == outpass.studentId.welfareCordinator ) 
+            {
                 if (approved) {
                     const update = await outpass.updateOne({
                         currentstatus: "Approved by Welfare Cordinator",
@@ -139,9 +143,11 @@ class Outpass {
                         { _id: outpass.studentId.warden },
                         { $push: { pendingoutpass: id } }
                     );
+                    const details = await Faculties.findById(outpass.studentId.warden)
+                    Mail.cordinatorApproved(outpass);
+                    Mail.outpassSentToWarden(outpass,details);
                     res.status(201).json("Approved by Welfare Cordinator");
                 }
-
                 // Else if Request declined by Welfare Cordinator
                 else {
                     const update = await outpass.updateOne({
@@ -154,15 +160,13 @@ class Outpass {
                             $pull: { pendingoutpass: id },
                         }
                     );
+                    Mail.declinedApproved(outpass)
                     res.status(201).json("Request declined by Welfare Cordinator");
                 }
             }
 
             // If fid is of Warden
-            else if (
-                fid == outpass.studentId.warden &&
-                outpass.facultyId.pendingoutpass.includes(id)
-            ) {
+            else if (fid == outpass.studentId.warden) {
                 if (approved) {
                     const update = await outpass.updateOne({
                         currentstatus: "Approved by Warden",
@@ -192,7 +196,7 @@ class Outpass {
                     // Userapproved.approvedoutpass = Utils.removeDuplicates(
                     //     Userapproved.approvedoutpass
                     // );
-
+                    Mail.FinalApproved(outpass);
                     res.status(201).json("Approved by Warden");
                 } else {
                     const update = await outpass.updateOne({
@@ -205,6 +209,7 @@ class Outpass {
                             $pull: { pendingoutpass: id },
                         }
                     );
+                    Mail.declinedApproved(outpass)
                     res.status(201).json("Request declined by Warden");
                 }
             }
@@ -227,9 +232,9 @@ class Outpass {
                     const update = await outpass.updateOne({
                         currentstatus: "Request Sent to Faculty Advisor",
                     });
-                    let Mail = new emailService();
+                const details = await Faculties.findById(outpass.studentId.facultyAdvisor)
                 Mail.outpassSentConfirm(outpass);
-                Mail.outpassSent(outpass);
+                Mail.outpassSent(outpass,details);
 
                     res.status(201).json("Request Sent to Faculty Advisor");
                 }
