@@ -3,7 +3,8 @@ import "./approveOutpass.css";
 import {MdPendingActions} from "react-icons/md";
 import {Link} from "react-router-dom";
 
-function ApproveOutpass() {
+function ApproveOutpass(data) {
+  console.log(data);
   return (
     <>
     <div className="card ApproveOutpassCard">
@@ -11,7 +12,7 @@ function ApproveOutpass() {
         <div className="card-body">
             <h5 className="card-title ApproveOutpassCardTitle">O U T P A S S</h5>
             <hr /> <hr /> <br />
-            <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Name:</span>Keshav Jha </p>
+            <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Name:</span>{data.name}</p>
             <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Reg. No:</span>20bcs070 </p>
             <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Outpass ID:</span> O193212K34 </p>
             <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Current Status:</span>

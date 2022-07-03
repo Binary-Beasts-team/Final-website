@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Error from "./pages/error";
+import ApproveOutpass from "./components/approveOutpass";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/user/outpass" element={<Outpass />} />
           <Route exact path="/outpass/form" element={<OutpassForm />} />
           <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/outpass/approve" element={<ApproveOutpass />} />
           <Route exact path="*" element={<Error />} />
         </Routes>
 
