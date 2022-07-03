@@ -48,9 +48,14 @@ const Outpass = () => {
                         <div class="strike font-serief line">
                             <span>Create New</span>
                         </div>
-                        <div className="info">
-                            <OutpassCard />
-                            <OutpassCard />
+                        <div className=" grid grid-cols-3">
+                            {outPass.outpass &&
+                                outPass.outpass.map((pass, idx) => {
+
+                                    return (
+                                        <OutpassCard id={outPass._id} name={outPass.name} regNo={outPass.regNo} />
+                                    )
+                                })}
                         </div>
                         <div class="strike font-serief line">
                             <span>Pending Requests</span>
@@ -60,7 +65,7 @@ const Outpass = () => {
                                 outPass.pendingoutpass.map((pass, idx) => {
 
                                     return (
-                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} />
+                                        <OutpassCard id={outPass._id} name={outPass.name} regNo={outPass.regNo} />
                                     )
                                 })}
                         </div>
@@ -70,7 +75,7 @@ const Outpass = () => {
                         {outPass.approvedoutpass &&
                             outPass.approvedoutpass.map((pass, idx) => {
                                 return (
-                                    <OutpassCard name={outPass.name} regNo={outPass.regNo} />
+                                    <OutpassCard id={outPass._id} name={outPass.name} regNo={outPass.regNo} />
                                     
                                 )
                             })}
@@ -81,7 +86,7 @@ const Outpass = () => {
                             {outPass.declinedoutpass &&
                                 outPass.declinedoutpass.map((pass, idx) => {
                                     return (
-                                        <OutpassCard name={outPass.name} regNo={outPass.regNo} />
+                                        <OutpassCard id={outPass._id} name={outPass.name} regNo={outPass.regNo} />
                                         
 
                                     )

@@ -3,7 +3,7 @@ import "./OutpassCard.css";
 import {MdPendingActions} from "react-icons/md";
 import {Link} from "react-router-dom";
 
-function OutpassCard({name ,regNo}) {
+function OutpassCard({name ,regNo ,id}) {
 
   console.log(name);
   return (
