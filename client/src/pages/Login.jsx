@@ -21,15 +21,6 @@ function Login() {
 
 
 
-    const Checkbox = ({ label, value, onChange }) => {
-        return (
-          <label>
-            <input type="checkbox" checked={value} onChange={onChange} />
-            {label}
-          </label>
-        );
-      };
-
     const handleGoogleOnClick = () => {
         window.location = '/auth/google'
     }
@@ -39,7 +30,6 @@ function Login() {
         const name = e.target.name;
         setuserLoginInfo({ ...userLoginInfo, [name]: val });
     };
-    console.log(userLoginInfo);
      // Submitted Email-Password
     const handleSubmit=(e)=>{
         e.preventDefault();         //prevents reloading page on Submit
@@ -86,9 +76,10 @@ function Login() {
                     user:email,
                     password
                 });
-            var data = {email:res.data.email, _id:res.data._id, img: res.data.dpLink, name:res.data.name}
+            var data = {email:res.data.email, _id:res.data._id, img: res.data.dpLink, name:res.data.name,regNo: res.data.regNo}
             if (res) {
             localStorage.setItem("userInfo", JSON.stringify(data));
+            console.log(res);
             navigate("/");
             }
 
@@ -122,11 +113,6 @@ function Login() {
                     <form className="loginBox" onSubmit={handleSubmit}>
                         <input placeholder="Email" type="email" required className="loginInput " ref={email} name="email" value={userLoginInfo.email} onChange={handleLoginChange}/>
                         <input placeholder="Password" type="password" required className="loginInput" ref={password} name="password" value={userLoginInfo.password} onChange={handleLoginChange}/>
-                        {/* <Checkbox
-                            label="Faculty"
-                            value={checked}
-                            onChange={handleChange}
-                        /> */}
                         <button className="loginBtn mt-1" onClick={postLoginData}>Login In</button>
                         <hr className="hr"/>
 

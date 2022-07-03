@@ -28,9 +28,7 @@ function Signup() {
         const name = e.target.name;
         setuserSignupInfo({ ...userSignupInfo, [name]: val });
     };
-    const handleLogin = () => {
-        navigate('/user/login');
-    }
+
     const handleGoogleOnClick = () => {
         window.location = '/auth/google'
     }

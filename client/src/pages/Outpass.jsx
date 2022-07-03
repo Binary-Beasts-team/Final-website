@@ -3,8 +3,40 @@ import './../css/Outpass.css'
 import VerticalNavbar from '../components/verticalNavbar';
 import ProgressBar from '../components/progressBar';
 import OutpassCard from '../components/OutpassCard';
+import { useState, useEffect } from 'react';
+import axios from "axios";
 
 const Outpass = () => {
+
+    const [outPass, setoutPass] = useState([]);
+
+    useEffect(() => {
+        const GetOutpasses = async () => {
+            let res;
+            const userData = JSON.parse(localStorage.getItem("userInfo"));
+            try {
+                if (userData) {
+                    const id = userData._id;
+                    res = await axios.put(
+                        `/api/outpass/${id}/student`
+                    );
+                    if (res) {
+                        setoutPass(res.data);
+                    } else {
+                        console.log("No Data");
+                    }
+                } else {
+                    console.log("Not Logged In");
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        GetOutpasses();
+    }, []);
+
+    console.log(outPass);
+
     return (
         <>
             <section>
