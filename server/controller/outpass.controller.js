@@ -43,6 +43,7 @@ class Outpass {
     async updateStatus(req, res) {
         const { id } = req.params;
         const { fid, approved } = req.body;
+        console.log(id);
         let Mail = new emailService();
         try {
             const outpass = await Outpasses.findById(id)
