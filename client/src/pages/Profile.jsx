@@ -27,6 +27,13 @@ function Profile() {
         fetchData();
     },[id])
 
+    const ifempty = (detail)=>{
+        if(detail == ""){
+            return "-----------"
+        }else{
+            return detail
+        }
+    }
 
   return (
     <div className='profile'>
@@ -36,7 +43,6 @@ function Profile() {
         <AiFillEdit className='profPicEdit'/>
 
         <h4 className="profileName">{student.name}</h4>
-
         <hr className='phr'/>
         <h4 className="urAccText">Your Account</h4>
         <div className="profileInfoBox">
@@ -49,11 +55,11 @@ function Profile() {
                 <span className='advisor keyItem'>Password</span>
             </div>
             <div className="profileValueBox">
-                <span className='username listItem'>{student.username}</span>
-                <span className='regNo listItem'>{student.regNo}</span>
-                <span className='userEmail listItem'>{student.email}</span>
-                <span className='contactNo listItem'>{student.contactNo}</span>
-                <span className='advisor listItem'>{facultyAdv}</span>
+                <span className='username listItem'>{ifempty(student.username)}</span>
+                <span className='regNo listItem'>{ifempty(student.regNo)}</span>
+                <span className='userEmail listItem'>{ifempty(student.email)}</span>
+                <span className='contactNo listItem'>{ifempty(student.contactNo)}</span>
+                <span className='advisor listItem'>{ifempty(facultyAdv)}</span>
                 <span className='advisor listItem'>***********</span>
             </div>
             <div className="profileIconBox">
