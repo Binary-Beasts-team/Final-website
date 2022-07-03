@@ -2,13 +2,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 95vh;
     font-family: Roboto;
     background-color: #f7f8fb;
 }
 
 .loginWrapper {
-    height: 80%;
+    height: 90%;
     width: 70%;
     display: flex;
 }
@@ -42,8 +42,7 @@
     justify-content: space-between;
     background-color: white;
     border-radius: 15px;
-
-    box-shadow: 0 0 1px rgba(12, 26, 75, 24%), 0 3px 8px -1px rgba(50, 50, 71, 5%);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .loginInput {
@@ -94,44 +93,17 @@
     justify-content: space-between;
 }
 
-.googleBtn, .fbBtn, .githubBtn {
-    border: none;
-    border-radius: 15px;
-    width: 25%;
-    height: 2.2rem;
+.googleSignIn {
+    width: auto;
+    border-radius: 14px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border: 1px solid grey !important;
 }
 
-.googleBtn {
-    background-color: rgb(0, 156, 133);
-    color: white;
-}
-
-
-.githubBtn {
-    background-color: rgb(41, 41, 41);
-    color: white;
-}
-
-.fbBtn {
-    background-color: #3B5998;
-    color: white;
-}
-
-.googleBtn:hover {
-    background-color: rgb(0, 123, 104);
-    cursor: pointer;
-}
-
-.githubBtn:hover {
-    background-color: black;
-    cursor: pointer;
-}
-
-.fbBtn:hover{
-    background-color: #2e4b8a;
-    cursor: pointer;
-}
 
 .signUpBtn {
     margin: 1rem;
+    color: #1171f0;
 }

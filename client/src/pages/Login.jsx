@@ -106,24 +106,23 @@ function Login() {
         <div className="login">
             <div className="loginWrapper">
                 <div className="loginLeft">
-                    <h1 className="loginLogo">Zomato</h1>
-                    <span className="loginDesc">Log in to Zomato and Order Your Favourite Food!</span>
+                    <h1 className="loginLogo">Digit io</h1>
+                    <span className="loginDesc">
+                        Welcome to IIIT Dharwad's Digital Portal for Outpass Application and Authentication.</span>
                 </div>
                 <div className="loginRight">
                     <form className="loginBox" onSubmit={handleSubmit}>
                         <input placeholder="Email" type="email" required className="loginInput " ref={email} name="email" value={userLoginInfo.email} onChange={handleLoginChange}/>
                         <input placeholder="Password" type="password" required className="loginInput" ref={password} name="password" value={userLoginInfo.password} onChange={handleLoginChange}/>
-                        <button className="loginBtn mt-1" onClick={postLoginData}>Login In</button>
-                        <hr className="hr"/>
-
-                        <div className="check-box my-3 ">
+                        <div className="check-box">
                             <label htmlFor="checkbox" className="mx-3">Are you a student?</label>
-                             <input type="checkbox"  name="checkbox" id="checkbox" onChange={handleCheckbox} />
+                            <input type="checkbox"  name="checkbox" id="checkbox" onChange={handleCheckbox} />
                         </div>
+                        <button className="loginBtn mt-1" onClick={postLoginData}>Log In</button>
 
-                        <div className="flex my-1 p-1 gap-4 border items-center cursor-pointer" onClick={handleGoogleOnClick}>
+                        <div className="flex my-1 p-1 gap-4 border items-center cursor-pointer googleSignIn" onClick={handleGoogleOnClick}>
                             <FcGoogle size={30} />
-                            <p className="text-left">login up with google</p>
+                            <p className="text-left">Sign In with Google</p>
                         </div>
                         <button onClick={handleForgotPassword} className="loginForgot">Forgot Password ?</button>
                         <hr className="hr"/>
