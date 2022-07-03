@@ -1,10 +1,15 @@
 import React from 'react';
 import "./approveOutpass.css";
+import queryString from "query-string";
 import {MdPendingActions} from "react-icons/md";
-import {Link} from "react-router-dom";
+import { Navigate, useNavigate, Link, useLocation } from "react-router-dom";
+
 
 function ApproveOutpass(data) {
-  console.log(data);
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const { name ,regNo, id, status,dol,dor,reason,destination } = queryString.parse(search);
+
   return (
     <>
     <div className="card ApproveOutpassCard">
@@ -12,19 +17,18 @@ function ApproveOutpass(data) {
         <div className="card-body">
             <h5 className="card-title ApproveOutpassCardTitle">O U T P A S S</h5>
             <hr /> <hr /> <br />
-            <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Name:</span>{data.name}</p>
-            <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Reg. No:</span>20bcs070 </p>
-            <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Outpass ID:</span> O193212K34 </p>
+            <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Name:</span>{name}</p>
+            <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Reg. No:</span>{regNo} </p>
+            <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Outpass ID:</span> {id} </p>
             <p className="card-text approvedOutpassCardText"><span className='outpassTitle'>Current Status:</span>
             
-            Pending for Approval at Faculty Advisor. <MdPendingActions className='statusIcon'/> </p>
+            {status}<MdPendingActions className='statusIcon'/> </p>
         </div>
         <ul className="list-group list-group-flush">
-            <li className="list-group-item listGrpItem"><span className='outpassTitle'>Applied On:</span>24-03-2022</li>
-            <li className="list-group-item listGrpItem"><span className='outpassTitle'>Date of Leaving:</span>26-03-2022</li>
-            <li className="list-group-item listGrpItem"><span className='outpassTitle'>Date of Returning:</span>04-04-2022</li>
-            <li className="list-group-item listGrpItem"><span className='outpassTitle'>Reason:</span>Summer Break</li>
-            <li className="list-group-item listGrpItem"><span className='outpassTitle'>Destination:</span>Patna</li>
+            <li className="list-group-item listGrpItem"><span className='outpassTitle'>Date of Leaving:</span>{dol}</li>
+            <li className="list-group-item listGrpItem"><span className='outpassTitle'>Date of Returning:</span>-04-2022{dor}</li>
+            <li className="list-group-item listGrpItem"><span className='outpassTitle'>Reason:</span>{reason}</li>
+            <li className="list-group-item listGrpItem"><span className='outpassTitle'>Destination:</span>{destination}</li>
         </ul>
           <div className="choiceButtons">
             <Link to="" class="btn btn-success approvalBtn" target="_blank">Approve</Link>
