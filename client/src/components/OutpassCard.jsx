@@ -1,13 +1,16 @@
 import React from 'react';
 import "./OutpassCard.css";
-import {Link} from "react-router-dom";
 import ApproveOutpass from './approveOutpass';
 import { useState, useEffect } from 'react';
+import { Navigate, useNavigate, Link } from "react-router-dom";
+
 
 function OutpassCard({name ,regNo, id, status,dol,dor,reason,destination}) {
+  const navigate = useNavigate();
+
   const [display, setdisplay] = useState(false);
   const handleOnCilck = () =>{
-    
+    navigate(`/outpass/approve?name=${name}&regNo=${regNo}&id=${id}&status=${status}&dol=${dol}&dor=${dor}&reason=${reason}&destination=${destination}`)
   }
   // console.log(data);
   return (
