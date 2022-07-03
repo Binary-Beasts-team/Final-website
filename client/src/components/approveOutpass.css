@@ -2,7 +2,7 @@
     font-family: Roboto;
 }
 
-.card {
+.ApproveOutpassCard {
     border-radius: 14px;
     border: none;
     width: 35rem;
@@ -12,7 +12,7 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-.card-title {
+.ApproveOutpassCardTitle {
     font-weight: 600 ;
     color: rgb(0, 0, 0);
     text-align: center;
@@ -24,7 +24,7 @@
     margin-right: 1rem;
 }
 
-.card-text {
+.approvedOutpassCardText {
     margin-top: 1rem;
 }
 
@@ -35,7 +35,7 @@
 
 }
 
-.list-group-item {
+.listGrpItem {
     color: rgb(70, 70, 70);
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
@@ -46,7 +46,7 @@
     justify-content: space-around;
 }
 
-.btn {
+.approvalBtn, .rejectBtn {
     width: 10rem;
     margin: 1rem;
     border-radius: 10px;
