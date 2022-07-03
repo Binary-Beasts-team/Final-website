@@ -1,8 +1,9 @@
 .outerDivForm {
     display: flex;
     justify-content: center;
-    background-image: url("./images/bgimg.jpg");
-    height: 93vh;
+    background-image: url("./images/homebg.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .outpassForm {
@@ -52,9 +53,13 @@
 }
 
 .cancelBtn {
-    background-color: rgb(188, 18, 18) !important;
+    background-color: rgb(228, 0, 0) !important;
     width: 100%;
     border: none;
     border-radius: 7px;
     margin: 1rem;
+}
+
+.cancelBtn:hover {
+    background-color: rgb(171, 0, 0) !important;
 }

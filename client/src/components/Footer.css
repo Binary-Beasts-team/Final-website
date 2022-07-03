@@ -5,7 +5,8 @@
     text-align: center;
     position: relative;
     width: 100%;
-    bottom: 0;
+    /* bottom: 0; */
+
 }
 
 .footer .ele-row {
