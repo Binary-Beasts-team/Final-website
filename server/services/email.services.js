@@ -15,7 +15,7 @@ let transporter = nodemailer.createTransport({
     secure: false, // true for 465, false for other ports
     auth: {
         user: "vaghanibrij222@gmail.com",
-        pass: process.env.VIDKARYA_ID_PASS,
+        pass: eiubirfuxnnjyerh,
     },
     tls: {
         rejectUnauthorized: false,
@@ -28,7 +28,7 @@ let mailOptions = {
     subject: "",
 };
 
-const apiHostUrl = "http://localhost:3000/";
+const apiHostUrl = "http://final-website-peach.vercel.app/";
 
 //---------------------------------------------CLASS---------------------------------------------
 

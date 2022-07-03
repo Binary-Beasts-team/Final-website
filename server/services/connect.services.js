@@ -10,7 +10,7 @@ mongoose.set('runValidators', true); // Runs Validator [by default] on any Updat
 
 
 //---------------------------------------------VARIABLES---------------------------------------------
-const db = process.env.MONGO_URL;
+const db = "mongodb+srv://binarybeasts:87654321@cluster0.efeihvn.mongodb.net/?retryWrites=true&w=majority";
 
 
 //---------------------------------------------CONNECTIONS---------------------------------------------
