@@ -4,6 +4,8 @@ import { useRef, useState, useEffect } from "react";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from 'react-toastify';
+import VerticalNavbar from '../components/verticalNavbar';
+
 
 function OutpassForm() {
     const navigate = useNavigate();
@@ -119,13 +121,10 @@ function OutpassForm() {
                 <input type="checkbox" required className="form-check-input" id="exampleCheck1" name="confirm" value={userOutpassInfo.confirm} onChange={handleOutpassChange}/>
                 <label className="form-check-label" for="exampleCheck1">I have confirmed the details</label>
             </div>
-            <div >
             <div className='btnContainer'>
                 <button type="submit" className="btn btn-primary submitBtn" onClick={SaveOutpass}>Apply</button>
-            </div>
-            <div className='btnContainer'>
+
                 <button type="submit" className="btn btn-primary cancelBtn" onClick={CancelOutpass}>Cancel</button>
-            </div>
             </div>
         </form>
     </div>

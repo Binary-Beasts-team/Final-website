@@ -1,7 +1,6 @@
 import React from 'react'
 import './../css/Outpass.css'
 import VerticalNavbar from '../components/verticalNavbar';
-import ProgressBar from '../components/progressBar';
 import OutpassCard from '../components/OutpassCard';
 import { useState, useEffect } from 'react';
 import axios from "axios";

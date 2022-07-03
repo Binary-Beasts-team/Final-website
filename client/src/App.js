@@ -28,7 +28,7 @@ function App() {
           <Route exact path="/user/outpass" element={<Outpass />} />
           <Route exact path="/outpass/form" element={<OutpassForm />} />
           <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/error" element={<Error />} />
+          <Route exact path="*" element={<Error />} />
         </Routes>
 
         <Footer/>
