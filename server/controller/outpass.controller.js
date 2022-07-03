@@ -223,9 +223,14 @@ class Outpass {
                         { _id: outpass.studentId.facultyAdvisor },
                         { $push: { pendingoutpass: id } }
                     );
+                    
                     const update = await outpass.updateOne({
                         currentstatus: "Request Sent to Faculty Advisor",
                     });
+                    let Mail = new emailService();
+                Mail.outpassSentConfirm(outpass);
+                Mail.outpassSent(outpass);
+
                     res.status(201).json("Request Sent to Faculty Advisor");
                 }
             }
