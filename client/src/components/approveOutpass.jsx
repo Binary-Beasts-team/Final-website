@@ -22,8 +22,8 @@ function ApproveOutpass(data) {
               fid:userData._id,
               approved:true              
           });
-          toast.dismiss(loadToast);
           if (res) {
+            toast.dismiss(loadToast);
           toast.success("sent the verification email to your registered email address !!");
           console.log("sent the verification email to your registered email address !!");
           navigate('/user/outpass')
@@ -48,17 +48,15 @@ function ApproveOutpass(data) {
               approve:false              
           });
 
-      toast.dismiss(loadToast);
-
-      if (res) {
-
-          toast.success("sent the verification email to your registered email address !!");
-          console.log("sent the verification email to your registered email address !!");
+          
+          if (res) {
+        toast.dismiss(loadToast);
+        toast.success("sent the verification email to your registered email address !!");
+        console.log("sent the verification email to your registered email address !!");
       }
-  } catch (error) {
+    } catch (error) {
     
       toast.dismiss(loadToast);
-
       toast.error("something went wrong cheack your internet connection!!")
   }
   }

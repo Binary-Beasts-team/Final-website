@@ -17,7 +17,7 @@ function Login() {
         
     });
     const [user,setUser] = useState({})
-    const [checkValue,setcheckValue] = useState("student");
+    const [checkValue,setcheckValue] = useState("faculty");
 
 
 
@@ -76,7 +76,11 @@ function Login() {
                     user:email,
                     password
                 });
-            var data = {email:res.data.email, _id:res.data._id, img: res.data.dpLink, name:res.data.name,regNo: res.data.regNo}
+                let faculty = false
+            if(checkValue === "faculty"){
+                faculty = true
+            }
+            var data = {email:res.data.email, _id:res.data._id, img: res.data.dpLink, name:res.data.name,regNo: res.data.regNo, faculty:faculty}
             if (res) {
                 toast.dismiss(Loadtoast);
             localStorage.setItem("userInfo", JSON.stringify(data));
@@ -93,7 +97,6 @@ function Login() {
     };
 
     const handleCheckbox = (e)=>{
-
         if(e.target.checked){
             setcheckValue("student");
         }else{
