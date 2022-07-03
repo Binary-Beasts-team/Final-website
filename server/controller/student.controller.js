@@ -12,7 +12,7 @@ const handler = new Handler();
 class Student {
     async create(req, res) {
         try {
-            const {name,email,password, genderMale} = req.body;
+            const {name,email,password} = req.body;
             let pass = await bcrypt.hash(password, 10); // Hashing the Password
             // Check if the entered Email is present in Database
             if (await Utils.notUsedEmail(email)) {
@@ -22,7 +22,7 @@ class Student {
                     email: email,
                     password: pass,
                     regNo: Utils.getstudentregno(email),
-                    genderMale: genderMale,
+                    
                     token: await Utils.generateUniqueString()
                 });
                 const newStudent = await post.save();

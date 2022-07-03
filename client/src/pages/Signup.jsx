@@ -14,11 +14,14 @@ function Signup() {
     const rePassword = useRef();
     const navigate = useNavigate();
     const [userSignupInfo, setuserSignupInfo] = useState({
-        userName: "Brij",
+        name: "",
         email: "",
         password: "",
         confirmPassword: "",
     });
+    const [checkValue, setcheckValue] = useState("student");
+
+
 
     const handleSignupChange = (e) => {
         const val = e.target.value;
@@ -34,7 +37,7 @@ function Signup() {
     }
 
     const postSignupData = async () => {
-        const { userName, email, password, confirmPassword } = userSignupInfo;
+        const { name, email, password, confirmPassword } = userSignupInfo;
 
         if (!email || !password || !confirmPassword) {
             toast.error("fill all the fields before sign up!!")
@@ -44,14 +47,16 @@ function Signup() {
             toast.error("Confirm Password doesn't Matches")
             return;
         }
+        const loadToast = toast.loading("signing up.. wait!!")
         try {
-            const loadToast = toast.loading("signing up.. wait!!")
+            
             const res = await axios.post(
-                "/api/student/",
+                `/api/${checkValue}/`,
                 {
-                    userName,
+                    name,
                     email,
-                    password,
+                    password 
+                    
                 });
 
             toast.dismiss(loadToast);
@@ -61,16 +66,27 @@ function Signup() {
                 toast.success("sent the verification email to your registered email address !!");
                 console.log("sent the verification email to your registered email address !!");
                 setuserSignupInfo({
-                    userName: "Brij",
+                    name: "",
                     email: "",
                     password: "",
                     confirmPassword: "",
                 });
             }
         } catch (error) {
+            toast.dismiss(loadToast);
+
             toast.error("something went wrong cheack your internet connection!!")
         }
     };
+
+    const handleCheckbox = (e) => {
+
+        if (e.target.checked) {
+            setcheckValue("student");
+        } else {
+            setcheckValue("faculty")
+        }
+    } 
 
     return (
         <>
@@ -82,23 +98,32 @@ function Signup() {
                     </div>
                     <div className="signupRight">
                         <form className="signupBox flex-col gap-2" onSubmit={handleSubmit}>
+                        <input type="text" required placeholder="name" className="signupInput"  name="name" value={userSignupInfo.name} onChange={handleSignupChange} />
+
                             <input type="email" required placeholder="Email" className="signupInput" ref={email} name="email" value={userSignupInfo.email} onChange={handleSignupChange} />
                             <input type="password" required placeholder="Password" className="signupInput" ref={password} name="password" value={userSignupInfo.password} onChange={handleSignupChange} />
                             <input type="password" required placeholder="Re-Enter Password" className="signupInput" ref={rePassword} name="confirmPassword" value={userSignupInfo.confirmPassword} onChange={handleSignupChange} />
                             <button className="signupBtn" onClick={postSignupData}>Sign Up</button>
-                            <div className="loginOptions">
-                                <button className="googleBtn" onClick={handleGoogleOnClick}>  Google</button>
+                            <div className="flex my-1 p-1 gap-4 border items-center cursor-pointer" onClick={handleGoogleOnClick}>
+                                <FcGoogle size={30} />
+                                <p className="text-left">sign  up with google</p>
+                            </div>
+                            <div>
+                                <label htmlFor="checkbox" className="mx-3">Are you a student?</label>
+                                <input type="checkbox" name="checkbox" id="checkbox" onChange={handleCheckbox} />
                             </div>
 
                             <hr className="hr" />
-                            <span className="newText">Already have an account?</span>
-                            <Link className="logInBtn" to="/user/login">Log In</Link>
+                            <Link to="/user/login">
+                                <span className="newText text-blue-600 ml-3 p-1">Already have an account? Log in</span>
+                            </Link>
+
                         </form>
                     </div>
                 </div>
             </div>
 
-           
+
         </>
     )
 }
