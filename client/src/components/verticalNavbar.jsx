@@ -8,17 +8,12 @@ const verticalNavbar = () => {
         <>
             <section>
                 <div className="sidebar">
-                    <h2>Sidebar</h2>
+                    <h2>Dashbord</h2>
                     <ul>
-                        <li><Link to="/"><i className="fas fa-user" />Profile</Link></li>
-                        <li><Link to="/"><i className="fas fa-address-card" />Create request</Link></li>
-                        <li><Link to="/"><i className="fas fa-project-diagram"></i>Outpass</Link></li>
+                        <li><Link to="/profile"><i className="fas fa-user" />Profile</Link></li>
+                        <li><Link to="/outpass/form"><i className="fas fa-address-card" />Create request</Link></li>
+                        <li><Link to="/user/outpass"><i className="fas fa-project-diagram"></i>Outpass</Link></li>
                     </ul>
-                    <div className="social_media">
-                        <Link to="/"><i className="fab fa-facebook-f"></i></Link>
-                        <Link to="/"><i className="fab fa-twitter"></i></Link>
-                        <Link to="/"><i className="fab fa-instagram"></i></Link>
-                    </div>
                 </div>
             </section>
         </>
